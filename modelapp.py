@@ -15,7 +15,7 @@ def load_data_from_github(url):
         return None
 
 # Load data from GitHub
-df2 = load_data_from_github(github_raw_url)
+df = load_data_from_github(github_raw_url)
 
 # Check if data is loaded successfully
 if df is not None:
@@ -23,7 +23,7 @@ if df is not None:
     st.dataframe(df)
 else:
     st.error("Failed to load data from GitHub.")
-df = pd.read_csv(df2)
+
 
 st.header('Model Matrix')
 con = st.expander('Enter')
