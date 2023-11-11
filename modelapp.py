@@ -2,27 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-import requests
-from io import StringIO
+from github import Github
 
-# Function to load data from a GitHub raw file URL
-def load_data_from_github(url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()  # Raise an error for bad responses (e.g., 404)
-        
-        # Use StringIO to create a file-like object from the response text
-        return pd.read_csv(StringIO(response.text))
-    except Exception as e:
-        st.error(f"Error loading data: {str(e)}")
-        return None
-    
-# GitHub raw file URL
-github_raw_url = 'https://github.com/loop16/models/main/Data.csv'
-st.set_page_config(layout="wide")
+
 
 # Load your external dataset
-file_path = github_raw_url
+file_path = 'models/main/Data.csv'
 df = pd.read_csv(file_path)
 
 st.header('Model Matrix')
