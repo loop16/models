@@ -2,12 +2,21 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
+import requests
 
+def load_data_from_github(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return pd.read_csv(pd.compat.StringIO(response.text))
+    else:
+        return None
 
+# GitHub raw file URL
+github_raw_url = 'https://github.com/loop16/models/blob/main/Data.csv'
 st.set_page_config(layout="wide")
 
 # Load your external dataset
-file_path = 'data.csv'
+file_path = load_data_from_github(github_raw_url)
 df = pd.read_csv(file_path)
 
 st.header('Model Matrix')
