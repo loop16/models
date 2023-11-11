@@ -3,12 +3,27 @@ import pandas as pd
 import numpy as np
 import altair as alt
 
+github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Data.csv'
 
+# Function to load data from a GitHub raw file URL
+def load_data_from_github(url):
+    try:
+        # Read CSV data using pandas
+        return pd.read_csv(url)
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
+        return None
 
+# Load data from GitHub
+df2 = load_data_from_github(github_raw_url)
 
-# Load your external dataset
-file_path = 'models/main/Data.csv'
-df = pd.read_csv(file_path)
+# Check if data is loaded successfully
+if df is not None:
+    # Display the loaded data
+    st.dataframe(df)
+else:
+    st.error("Failed to load data from GitHub.")
+df = pd.read_csv(df2)
 
 st.header('Model Matrix')
 con = st.expander('Enter')
