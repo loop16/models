@@ -3,28 +3,27 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import requests
+from io import StringIO
 
-
-# Function to load data from a GitHub raw file URL
 # Function to load data from a GitHub raw file URL
 def load_data_from_github(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        return pd.read_csv(pd.compat.StringIO(response.text))
-    else:
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an error for bad responses (e.g., 404)
+        
+        # Use StringIO to create a file-like object from the response text
+        return pd.read_csv(StringIO(response.text))
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
         return None
+    
 # GitHub raw file URL
 github_raw_url = 'https://github.com/loop16/models/main/Data.csv'
 st.set_page_config(layout="wide")
-df = load_data_from_github(github_raw_url)
 
-# Check if data is loaded successfully
-if df is not None:
-    # Display the loaded data
-    st.dataframe(df)
-else:
-    st.error("Failed to load data from GitHub.")
-
+# Load your external dataset
+file_path = github_raw_url
+df = pd.read_csv(file_path)
 
 st.header('Model Matrix')
 con = st.expander('Enter')
