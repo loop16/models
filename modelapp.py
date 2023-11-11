@@ -5,12 +5,15 @@ import altair as alt
 import requests
 
 def load_data_from_github(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        return pd.read_csv(pd.compat.StringIO(response.text))
-    else:
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an error for bad responses (e.g., 404)
+        
+        # Use StringIO to create a file-like object from the response text
+        return pd.read_csv(StringIO(response.text))
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
         return None
-
 # GitHub raw file URL
 github_raw_url = 'https://github.com/loop16/models/blob/main/Data.csv'
 st.set_page_config(layout="wide")
