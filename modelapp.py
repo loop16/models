@@ -3,7 +3,9 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import requests
+from io import StringIO
 
+# Function to load data from a GitHub raw file URL
 def load_data_from_github(url):
     try:
         response = requests.get(url)
@@ -17,11 +19,14 @@ def load_data_from_github(url):
 # GitHub raw file URL
 github_raw_url = 'https://github.com/loop16/models/blob/main/Data.csv'
 st.set_page_config(layout="wide")
+df = load_data_from_github(github_raw_url)
 
-# Load your external dataset
-file_path = load_data_from_github(github_raw_url)
-df = pd.read_csv(file_path)
-
+# Check if data is loaded successfully
+if df is not None:
+    # Display the loaded data
+    st.dataframe(df)
+else:
+    st.error("Failed to load data from GitHub.")
 st.header('Model Matrix')
 con = st.expander('Enter')
 with con:
