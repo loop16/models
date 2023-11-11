@@ -13,16 +13,12 @@ def load_data_from_github(url):
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
         return None
+    
 
+st.set_page_config(layout="wide")
 # Load data from GitHub
 df = load_data_from_github(github_raw_url)
 
-# Check if data is loaded successfully
-if df is not None:
-    # Display the loaded data
-    st.dataframe(df)
-else:
-    st.error("Failed to load data from GitHub.")
 
 
 st.header('Model Matrix')
