@@ -120,14 +120,14 @@ with con:
 
 
     bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('MaxExtensionADR:N',),
+        x=alt.X('MaxExtensionADR:N', bin=alt.Bin(step=0.1)),
         y=alt.Y('count():Q')
     )
     c1.altair_chart(bar_chart2, use_container_width=True)
 
 
     bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('MaxRetraceADR:N',),
+        x=alt.X('MaxRetraceADR:N',bin=alt.Bin(step=0.1)),
         y=alt.Y('count():Q')
     )
 
@@ -237,14 +237,14 @@ with con:
 
 
     bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('MaxExtensionODR:N',),
+        x=alt.X('MaxExtensionODR:N',bin=alt.Bin(step=0.1)),
         y=alt.Y('count():Q')
     )
     c2.altair_chart(bar_chart2, use_container_width=True)
 
 
     bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('MaxRetraceODR:N',),
+        x=alt.X('MaxRetraceODR:N',bin=alt.Bin(step=0.1)),
         y=alt.Y('count():Q')
     )
     c2.altair_chart(bar_chart3, use_container_width=True)
@@ -284,7 +284,6 @@ with con:
         filtered_model_df = filtered_model_df # No filtering
     else:
         filtered_model_df = filtered_model_df[filtered_model_df['BrokenRDR'] == BrokenRDR]
-
 
     bar_chart = alt.Chart(filtered_model_df).mark_bar().encode(
         x=alt.X('ODRtoRDR:N',sort='-y'),
@@ -350,14 +349,14 @@ with con:
 
 
     bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('MaxExtensionRDR:N',),
+        x=alt.X('MaxExtensionRDR:N',bin=alt.Bin(step=0.1)),
         y=alt.Y('count():Q')
     )
     c3.altair_chart(bar_chart2, use_container_width=True)
 
 
     bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('MaxRetraceRDR:N',),
+        x=alt.X('MaxRetraceRDR:N',bin=alt.Bin(step=0.1)),
         y=alt.Y('count():Q')
     )
     c3.altair_chart(bar_chart3, use_container_width=True)
