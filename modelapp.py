@@ -107,10 +107,17 @@ with con:
     theta='Count:Q' 
     )
 
-
-
-
     c1.altair_chart(chart2, use_container_width=True)
+
+    word_countsB = filtered_model_df['BrokenADR'].value_counts().reset_index()
+    word_countsB.columns = ['ADR Broken', 'Count']
+
+    chartB = alt.Chart(word_countsB).mark_arc().encode(
+    color=alt.Color('ADR Broken:N' ),
+    theta='Count:Q' 
+    )
+    c1.altair_chart(chartB, use_container_width=True)
+
 
     bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
         x=alt.X('MaxExtensionADR:N',),
@@ -123,6 +130,7 @@ with con:
         x=alt.X('MaxRetraceADR:N',),
         y=alt.Y('count():Q')
     )
+
     c1.altair_chart(bar_chart3, use_container_width=True)
 
 
@@ -216,6 +224,17 @@ with con:
 
 
     c2.altair_chart(chart4, use_container_width=True)
+
+    word_countsC = filtered_model_df['BrokenODR'].value_counts().reset_index()
+    word_countsC.columns = ['ODR Broken', 'Count']
+
+    chartC = alt.Chart(word_countsC).mark_arc().encode(
+    color=alt.Color('ODR Broken:N' ),
+    theta='Count:Q' 
+    )
+    c2.altair_chart(chartC, use_container_width=True)
+
+
 
     bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
         x=alt.X('MaxExtensionODR:N',),
@@ -317,6 +336,18 @@ with con:
 
 
     c3.altair_chart(chart6, use_container_width=True)
+
+    word_countsD = filtered_model_df['BrokenRDR'].value_counts().reset_index()
+    word_countsD.columns = ['RDR Broken', 'Count']
+
+    chartD = alt.Chart(word_countsD).mark_arc().encode(
+    color=alt.Color('RDR Broken:N' ),
+    theta='Count:Q' 
+    )
+    c3.altair_chart(chartD, use_container_width=True)
+
+
+
 
     bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
         x=alt.X('MaxExtensionRDR:N',),
