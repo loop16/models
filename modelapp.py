@@ -4,7 +4,7 @@ import numpy as np
 import altair as alt
 
 github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Data.csv'
-github_raw_url2 = 'https://raw.githubusercontent.com/loop16/models/main/CLdata.csv'
+CLData = 'https://raw.githubusercontent.com/loop16/models/main/CLdata.csv'
 
 # Function to load data from a GitHub raw file URL
 def load_data_from_github(url):
@@ -17,6 +17,7 @@ def load_data_from_github(url):
     
 
 
+
 st.set_page_config(layout="wide")
 instrument_options = ['ES', 'CL']
 
@@ -24,9 +25,9 @@ Data= st.selectbox('Instrument', options=instrument_options,)
 # Load data from GitHub
 if instrument_options == 'ES':
     df = load_data_from_github(github_raw_url)
-else:
-    df = load_data_from_github(github_raw_url2)
 
+if instrument_options == 'CL':
+    df = load_data_from_github(CLData)
 
 
 st.header('Model Matrix')
