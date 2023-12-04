@@ -269,7 +269,7 @@ Date,Day,RDRtoADR,BrokenADR,ADRBOX,ADRConfirm,MaxExtensionADR,MaxRetraceADR,ADRt
 1/13/2017,friday,squeeze,na,green,na,na,na,downside,no,green,short,2.5,0.3,down x,no,green,short,1,-0.4
 1/16/2017,monday,down x plus,no,green,long false,0.5,-2.4,down x plus,yes,red,long false,4.2,-1.7,upside,no,green,long,3.7,-1
 1/17/2017,tuesday,upside x plus,yes,red,short,6.5,-1,range x,na,na,long,4.1,0.8,upside x plus,yes,red,short,0.4,-0.6
-1/18/2017,wednesday,down x plus,no,red,long,7.3,0.6,upside x plus,yes,red,short,6,0.7,down x plus,no,green,longf,3.8,-3.9
+1/18/2017,wednesday,down x plus,no,red,long,7.3,0.6,upside x plus,yes,red,short,6,0.7,down x plus,no,green,long false,3.8,-3.9
 1/19/2017,thursday,squeeze,na,green,long,1.2,-0.8,upside x plus,yes,green,short,1.4,-1,downside,no,green,short,2.2,-0.5
 1/20/2017,friday,down x,no,red,short,2.4,-0.7,upside x,no,green,long,5.7,0.4,upside x plus,no,green,short,0.5,-0.4
 1/23/2017,monday,down x,no,red,long false,0.2,-3.3,down x plus,no,red,short,2.4,-0.5,down x plus,yes,green,long,1.7,-0.2
@@ -1124,7 +1124,7 @@ Date,Day,RDRtoADR,BrokenADR,ADRBOX,ADRConfirm,MaxExtensionADR,MaxRetraceADR,ADRt
 5/11/2020,monday,squeeze,na,red,short false,1.4,-1.5,downside,yes,red,short false,0.8,-3.7,upside x plus,yes,na,short,2.7,0.1
 5/12/2020,tuesday,down x plus,no,red,na,na,na,upside x plus,no,green,long,5.2,-0.8,upside x plus,no,red,short false,0.3,-2.9
 5/13/2020,wednesday,down x,yes,na,long,3.2,-0.4,upside x,yes,red,short false,0.4,-1.9,upside,yes,red,long false,1.5,-2.4
-5/14/2020,thursday,squeeze,na,short,short,0.6,-0.9,upside x plus,no,green,long,5.1,-1.5,upside x,no,green,long,4.1,0.1
+5/14/2020,thursday,squeeze,na,red,short,0.6,-0.9,upside x plus,no,green,long,5.1,-1.5,upside x,no,green,long,4.1,0.1
 5/15/2020,friday,upside x plus,no,red,short false,0.1,-1.5,upside x plus,no,green,short,3,0,range x,na,green,long,1.4,0.2
 5/18/2020,monday,upside x plus,no,green,na,na,na,upside x plus,no,green,long,6,0.5,upside x plus,no,red,long false,1.9,-4.1
 5/19/2020,tuesday,upside x plus,yes,red,short,8,0.7,down x plus,no,green,short,1.6,-0.9,range x,na,red,short,1.7,-0.7
@@ -1193,7 +1193,7 @@ Date,Day,RDRtoADR,BrokenADR,ADRBOX,ADRConfirm,MaxExtensionADR,MaxRetraceADR,ADRt
 8/14/2020,friday,down x,no,red,short,0.5,-0.6,down x plus,no,red,short,0.7,-1.4,upside,yes,green,short,1.6,-0.7
 8/17/2020,monday,upside x,no,green,short false,0.8,-3.7,range x,na,red,short,2.4,-0.8,range x,na,green,long,0.9,-0.6
 8/18/2020,tuesday,upside x plus,no,green,short,1.5,0,range x,na,green,long false,0.3,-1.5,down x plus,yes,red,long,0.8,-0.3
-8/19/2020,wednesday,upside x,no,green,long false,0.5,-1.7,downside,no,red,short,0.7,-1,downsde,yes,red,long,1.4,-0.8
+8/19/2020,wednesday,upside x,no,green,long false,0.5,-1.7,downside,no,red,short,0.7,-1,downside,yes,red,long,1.4,-0.8
 8/20/2020,thursday,upside x,no,red,short,2,0.1,down x,no,green,short,4.8,-1.2,down x plus,yes,green,long,0.4,0
 8/21/2020,friday,upside x plus,no,green,short false,0.8,-1.7,down x plus,no,red,short,3.9,-0.1,down x plus,no,green,short,1,-1.3
 8/24/2020,monday,upside x plus,no,red,short,0.3,-0.8,upside x plus,no,green,long,1.4,-0.9,range x,na,green,na,na,na
@@ -1208,7 +1208,7 @@ Date,Day,RDRtoADR,BrokenADR,ADRBOX,ADRConfirm,MaxExtensionADR,MaxRetraceADR,ADRt
 9/4/2020,friday,squeeze,na,green,long false,0.6,-1.9,range x,na,green,long,0.4,-0.3,down x,no,red,short,1.3,-0.3
 9/7/2020,monday,down x plus,no,green,long,1.7,-0.2,upside x plus,no,green,long false,0.6,-2,downside,yes,green,long,1.5,-1.5
 9/8/2020,tuesday,upside x,yes,red,short,2.8,0,down x plus,no,red,short,12.2,0.4,down x plus,no,red,short,0.4,-1.5
-9/9/2020,wednesday,squeeze,na,green,shrt,0.4,-0.9,upside,no,green,long,0,-0.5,squeeze,na,red,long,2,0
+9/9/2020,wednesday,squeeze,na,green,short,0.4,-0.9,upside,no,green,long,0,-0.5,squeeze,na,red,long,2,0
 9/10/2020,thursday,upside x plus,no,red,long,1.2,0.1,range x,na,red,short,0.6,-0.7,upside,yes,red,short,1.8,-1.1
 9/11/2020,friday,down x plus,no,green,short,0.2,-0.9,range x,na,red,long,0.3,-1.1,squeeze,na,green,long,1.1,-0.6
 9/14/2020,monday,upside x,no,red,short false,0.3,-1.9,range x,na,red,short,1.5,-0.3,down x,no,green,long,0.3,-0.5
@@ -1581,7 +1581,7 @@ Date,Day,RDRtoADR,BrokenADR,ADRBOX,ADRConfirm,MaxExtensionADR,MaxRetraceADR,ADRt
 2/15/2022,tuesday,upside x plus,no,green,long,0.8,-1.6,down x plus,no,red,short,1.4,0.2,down x plus,no,red,long,1.5,-0.1
 2/16/2022,wednesday,upside x plus,no,red,short,0.2,-1,upside x plus,no,green,short false,0.4,-1.6,upside x plus,yes,green,long false,1.3,-5.5
 2/17/2022,thursday,down x plus,no,green,long,2.7,0,upside x plus,no,red,short false,0.8,-1.2,down x,no,green,short,0.7,-0.8
-2/18/2022,friday,down x plus,no,red,shrot,0.7,-1.4,down x,no,red,short,2.5,0.1,downside,yes,green,long,1.2,-0.4
+2/18/2022,friday,down x plus,no,red,short,0.7,-1.4,down x,no,red,short,2.5,0.1,downside,yes,green,long,1.2,-0.4
 2/21/2022,monday,upside x,no,red,short,0,-0.4,squeeze,na,green,long,1.1,-0.3,upside x plus,no,green,long,3.4,-0.8
 2/22/2022,tuesday,upside x plus,no,green,long,0.3,-0.8,upside x plus,no,green,short,0.7,-0.2,down x plus,no,red,short,0.1,-0.3
 2/23/2022,wednesday,squeeze,na,green,long,1,-1.5,range x,na,red,short,0.6,-0.9,upside x,yes,green,short,0.2,-0.3
@@ -1662,7 +1662,7 @@ Date,Day,RDRtoADR,BrokenADR,ADRBOX,ADRConfirm,MaxExtensionADR,MaxRetraceADR,ADRt
 6/9/2022,thursday,upside x plus,no,green,short false,1,-2.7,down x plus,no,green,long,1.5,-0.5,range x,na,green,long,0.2,-1.5
 6/10/2022,friday,squeeze,na,red,short,8.5,0.2,down x plus,yes,red,long,4.7,0.5,range x,na,green,short,1.9,-0.6
 6/13/2022,monday,down x plus,no,red,na,na,na,downside,yes,green,long,0.7,-0.6,upside x,yes,red,short false,0.8,-3
-6/14/2022,tuesday,upsided x,no,green,long,1,-1.1,upside x plus,no,green,short,0.8,-1,upside x plus,yes,green,short,5,-0.1
+6/14/2022,tuesday,upside x,no,green,long,1,-1.1,upside x plus,no,green,short,0.8,-1,upside x plus,yes,green,short,5,-0.1
 6/15/2022,wednesday,down x plus,no,green,long,0.7,-0.6,upside,yes,green,long false,0.5,-4.8,down x plus,no,green,short,6.6,-1
 6/16/2022,thursday,down x plus,no,green,long false,0.2,-2.1,down x,no,red,short,3.4,0.3,down x plus,yes,green,long,1.3,-0.2
 6/17/2022,friday,upside x plus,no,red,long,0.4,-0.8,upside x plus,no,green,long false,0.7,-2,down x plus,no,red,short,2.2,0.1
