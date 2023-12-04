@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import altair as alt
 
-github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Data.csv'
+github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/CLData.csv'
 
 # Function to load data from a GitHub raw file URL
 def load_data_from_github(url):
