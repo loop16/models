@@ -3,7 +3,9 @@ import pandas as pd
 import numpy as np
 import altair as alt
 
-github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/CLdata.csv'
+github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Data.csv'
+github_raw_url2 = 'https://raw.githubusercontent.com/loop16/models/main/CLdata.csv'
+
 
 # Function to load data from a GitHub raw file URL
 def load_data_from_github(url):
@@ -15,10 +17,17 @@ def load_data_from_github(url):
         return None
     
 
+
 st.set_page_config(layout="wide")
 # Load data from GitHub
-df = load_data_from_github(github_raw_url)
 
+instrument_options = ['ES', 'CL']
+
+# Create a select box in Streamlit
+selected_instrument = st.selectbox('Instrument', instrument_options)
+
+df = load_data_from_github(github_raw_url)
+df2 = load_data_from_github(github_raw_url2)
 
 
 st.header('Model Matrix')
@@ -29,7 +38,13 @@ with con:
     c1.write('RDR -> ADR')
     RdrAdr_options = ['All'] + list(df['RDRtoADR'].unique())
     RDRtoADR = c1.selectbox('Select Model for RDR to ADR' , options=RdrAdr_options)
-    filtered_model_df = df
+    if selected_instrument == 'ES':
+        filtered_model_df = df
+    else:
+        filtered_model_df = df2
+
+
+    
     if RDRtoADR == 'All':
         filtered_model_df = filtered_model_df # No filtering
     else:
