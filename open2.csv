@@ -6,7 +6,7 @@ Date,Day,ODR Model,ODR Type,Color,RDR Model,ADR std Based RDR open,ODR std Based
 1/8/2020,wednesday,dxp,short true,red,dxp,-4,-1,adr
 1/9/2020,thursday,dx,na,green,dxp,-2,-0.5,odr
 1/10/2020,friday,d,short false,red,dxp,-0.5,-0.5,adr
-1/13/2020,monday,ux,long true,green,dxp,-1,-1.5,na
+1/13/2020,monday,ux,long true,green,dxp,-1,-1.5,equal
 1/14/2020,tuesday,dxp,long true,red,uxp,1,1.5,odr
 1/15/2020,wednesday,dxp,short false,red,u,-1,0.5,odr
 1/16/2020,thursday,rx,short true,green,u,0,0,odr
@@ -391,7 +391,7 @@ Date,Day,ODR Model,ODR Type,Color,RDR Model,ADR std Based RDR open,ODR std Based
 7/8/2021,thursday,dx,short true,red,rx,-0.5,0,odr
 7/9/2021,friday,u,long true,green,uxp,2.5,2.5,adr
 7/12/2021,monday,dxp,short true,red,dxp,-4.5,-0.5,odr
-7/13/2021,tuesday,ux,long false,green,dx,0,-0.5,dx
+7/13/2021,tuesday,ux,long false,green,dx,0,-0.5,odr
 7/14/2021,wednesday,u,short true,red,d,0.5,0,odr
 7/15/2021,thursday,dxp,long false,red,ux,-3.5,0,odr
 7/16/2021,friday,rx,long true,green,rx,2,1.5,odr
