@@ -84,6 +84,13 @@ with con:
     else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR TRUERUE'] == Size]
 
+    TIME2Confirm_options = ['All'] + sorted(df['odr_false_conf_time'].dropna().unique())
+    TIME2Confirm = c1.selectbox('TIME of False Confirmation' , options=TIMEConfirm_options)
+
+    if TIME2Confirm == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+    else:
+        filtered_model_df = filtered_model_df[filtered_model_df['odr_false_conf_time'] == TIME2Confirm]   
 
     ADRbox_options = ['All'] + list(df['ODR BOX'].unique())
     ADRbox = c1.selectbox('ODR Color' , options=ADRbox_options)
