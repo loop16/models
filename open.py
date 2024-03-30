@@ -24,7 +24,7 @@ df = load_data_from_github(github_raw_url)
 st.header('')
 con = st.expander('Enter')
 with con:
-    c1, c2, c3 = con.columns(3)
+    c1, c2, c3 = con.columns([1,2,2])
 
     c1.write('Filters')
     RdrAdr_options = ['All'] + list(df['Day'].unique())
@@ -120,7 +120,12 @@ with con:
 
 
 
- 
+    bar_chart = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('RDR Model:N',sort='-y'),
+        y=alt.Y('count():Q')
+    )
+
+    c1.altair_chart(bar_chart, use_container_width=True)
 
     ################################
 
@@ -213,4 +218,7 @@ with con:
         y=alt.Y('count():Q')
     )
     c3.altair_chart(bar_chart3, use_container_width=True)
+
+
+    
     
