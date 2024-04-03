@@ -26,7 +26,8 @@ c1, c2, c3 = st.columns([1,2,2])
 
 c1.write('Filters')
 RdrAdr_options = ['All'] + list(df['Day'].unique())
-RDRtoADR = c1.selectbox('Day' , options=RdrAdr_options)
+with st.sidebar:
+    RDRtoADR = st.selectbox('Day' , options=RdrAdr_options)
 
 filtered_model_df = df
 
@@ -37,7 +38,8 @@ else:
 
 
 DRbox_options = ['All'] + list(df['ADR Model'].unique())
-DRbox = c1.selectbox('ADR Model' , options=DRbox_options)
+with st.sidebar:
+    DRbox = st.selectbox('ADR Model' , options=DRbox_options)
 
 if DRbox == 'All':
         filtered_model_df = filtered_model_df # No filtering
@@ -48,7 +50,8 @@ else:
 
 
 BrokenADR_options = ['All'] + list(df['ODR Model'].unique())
-BrokenADR = c1.selectbox('ODR Model' , options=BrokenADR_options)
+with st.sidebar:
+    BrokenADR = st.selectbox('ODR Model' , options=BrokenADR_options)
 
 if BrokenADR == 'All':
         filtered_model_df = filtered_model_df # No filtering
@@ -56,18 +59,25 @@ else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR Model'] == BrokenADR] 
 
     
+if not pd.api.types.is_datetime64_any_dtype(filtered_model_df['odr_conf_time']):
+    filtered_model_df['odr_conf_time'] = pd.to_datetime(filtered_model_df['odr_conf_time'])
 
+TIMEConfirm_options = ['All'] + sorted(filtered_model_df['odr_conf_time'].dropna().dt.strftime('%Y-%m-%d %H:%M').unique())
+#TIMEConfirm_options = ['All'] + sorted(df['odr_conf_time'].dropna().unique())
+#TIMEConfirm = c1.selectbox('TIME of Confirmation' , options=TIMEConfirm_options)
+with st.sidebar:
+    selected_times = st.multiselect('Select ODR Confirmation:', options=TIMEConfirm_options, default=['All'])
 
-TIMEConfirm_options = ['All'] + sorted(df['odr_conf_time'].dropna().unique())
-TIMEConfirm = c1.selectbox('TIME of Confirmation' , options=TIMEConfirm_options)
-
-if TIMEConfirm == 'All':
-        filtered_model_df = filtered_model_df # No filtering
+if 'All' in selected_times:
+    filtered_model_df = filtered_model_df
 else:
-        filtered_model_df = filtered_model_df[filtered_model_df['odr_conf_time'] == TIMEConfirm]   
+    filtered_model_df = filtered_model_df[filtered_model_df['odr_conf_time'].dt.strftime('%Y-%m-%d %H:%M').isin(selected_times)]
+
+
 
 ADRConfirm_options = ['All'] + list(df['ODR CONFO'].unique())
-ADRConfirm = c1.selectbox('Confirmation' , options=ADRConfirm_options)
+with st.sidebar:
+    ADRConfirm = st.selectbox('Confirmation' , options=ADRConfirm_options)
 
 if ADRConfirm == 'All':
         filtered_model_df = filtered_model_df # No filtering
@@ -75,23 +85,33 @@ else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR CONFO'] == ADRConfirm]
 
 Size_options = ['All'] + list(df['ODR TRUERUE'].unique())
-Size = c1.selectbox('TRUE OR FALSE?' , options=Size_options)
+with st.sidebar:
+    Size = st.selectbox('TRUE OR FALSE?' , options=Size_options)
 
 if Size == 'All':
         filtered_model_df = filtered_model_df # No filtering
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR TRUERUE'] == Size]
 
-TIME2Confirm_options = ['All'] + sorted(df['odr_false_conf_time'].dropna().unique())
-TIME2Confirm = c1.selectbox('TIME of False Confirmation' , options=TIMEConfirm_options)
+if not pd.api.types.is_datetime64_any_dtype(filtered_model_df['odr_false_conf_time']):
+    filtered_model_df['odr_false_conf_time'] = pd.to_datetime(filtered_model_df['odr_false_conf_time'])
 
-if TIME2Confirm == 'All':
-        filtered_model_df = filtered_model_df # No filtering
+TIME2Confirm_options = ['All'] + sorted(filtered_model_df['odr_false_conf_time'].dropna().dt.strftime('%Y-%m-%d %H:%M').unique())
+
+TIME2Confirm = c1.selectbox('TIME of False Confirmation' , options=TIME2Confirm_options)
+
+with st.sidebar:
+    selected_times = st.multiselect('TIME ODR False Confirmation:', options=TIME2Confirm_options, default=['All'])
+
+if 'All' in selected_times:
+    filtered_model_df = filtered_model_df
 else:
-        filtered_model_df = filtered_model_df[filtered_model_df['odr_false_conf_time'] == TIME2Confirm]   
+    filtered_model_df = filtered_model_df[filtered_model_df['odr_false_conf_time'].dt.strftime('%Y-%m-%d %H:%M').isin(selected_times)]
+
 
 ADRbox_options = ['All'] + list(df['ODR BOX'].unique())
-ADRbox = c1.selectbox('ODR Color' , options=ADRbox_options)
+with st.sidebar:
+    ADRbox = st.selectbox('ODR Color' , options=ADRbox_options)
 
 if ADRbox == 'All':
         filtered_model_df = filtered_model_df # No filtering
@@ -217,6 +237,11 @@ bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
 )
 c3.altair_chart(bar_chart3, use_container_width=True)
 
+bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+    x=alt.X('Difference:N',bin=alt.Bin(step=0.5)),
+    y=alt.Y('count():Q')
+)
+c3.altair_chart(bar_chart3, use_container_width=True)
 
     
     
