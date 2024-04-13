@@ -3068,7 +3068,7 @@ Date,Day,ADR_Model,ADR_Confirmation,ADR_True_False,ADR Mid Trans,ADR Mid Box,ADR
 2012-04-11,Wednesday,DXP,Short,False,intact,intact,broken,UXP,4:00,Short,True,green,06:00,-0.452,Inside,broken,broken,intact,-1.548,0.452,09:05,09:20,U,green,Long,True,10:30,-1.226,-1.032,-2.065,-0.387,intact,intact,intact
 2012-04-10,Tuesday,UXP,Short,False,broken,intact,broken,DXP,4:15,Long,False,green,06:20,-0.029,Inside,broken,broken,intact,-0.657,0.943,09:10,08:40,RX,red,Short,True,11:05,0.143,0.100,1.714,-1.429,broken,broken,intact
 2012-04-09,Monday,UXP,Short,True,intact,intact,intact,DXP,4:00,Long,False,green,08:15,-2.867,Below,intact,intact,broken,-5.667,-1.933,09:20,08:40,DXP,green,Short,False,11:10,-4.333,-4.533,-3.600,-5.067,intact,intact,broken
-2012-04-06,Friday,ADR/Other,,,,,,ODR/Other,,,,,,,Inside,,,,,,,,Other,other,NO_CONF,NO_CONF,,,,,,,,
+2012-04-06,Friday,ADR/Other,,,,,,ODR/Other,,,,,,,Inside,,,,,,,,Other,,NO_CONF,NO_CONF,,,,,,,,
 2012-04-05,Thursday,DXP,Short,False,intact,broken,broken,UX,5:15,Short,True,green,07:55,2.087,Below,intact,intact,broken,0.826,2.957,08:40,09:05,DX,green,Long,True,10:30,0.565,0.543,-0.130,1.261,intact,broken,broken
 2012-04-04,Wednesday,DXP,Short,True,intact,intact,intact,DXP,4:30,Short,True,red,04:40,5.462,Below,intact,intact,intact,4.769,8.000,09:05,09:25,DXP,equal,Short,True,10:30,4.808,5.000,3.308,6.308,intact,intact,intact
 2012-04-03,Tuesday,UXP,Long,False,broken,intact,intact,DXP,4:15,Short,True,red,05:15,0.312,Below,broken,broken,broken,-2.688,0.563,08:35,09:15,D,red,Short,True,14:00,0.781,0.312,-0.750,2.313,broken,broken,broken
@@ -3589,7 +3589,7 @@ Date,Day,ADR_Model,ADR_Confirmation,ADR_True_False,ADR Mid Trans,ADR Mid Box,ADR
 2010-04-07,Wednesday,DXP,Long,True,intact,intact,broken,UXP,4:05,Short,True,red,04:25,4.190,Below,broken,broken,broken,-0.619,4.286,08:30,09:25,DX,red,Short,True,10:30,0.190,0.238,-0.429,0.810,broken,broken,broken
 2010-04-06,Tuesday,UXP,Short,True,broken,broken,broken,D,4:35,Short,False,red,07:55,-0.667,Inside,broken,broken,broken,-1.667,0.367,08:35,09:10,UX,green,Short,True,12:40,-1.500,-1.333,-2.067,-0.933,broken,broken,broken
 2010-04-05,Monday,ADR/Other,Long,True,broken,intact,broken,DXP,4:25,Long,True,red,04:50,0.100,Inside,intact,intact,intact,0.133,1.900,08:30,09:00,UXP,green,Long,True,10:35,1.633,1.650,2.567,0.700,broken,broken,intact
-2010-04-02,Friday,RC,,,,,,ODR/Other,,,,,,,Inside,,,,,,,,Other,other,NO_CONF,NO_CONF,,,,,,,,
+2010-04-02,Friday,RC,,,,,,ODR/Other,,,,,,,Inside,,,,,,,,Other,,NO_CONF,NO_CONF,,,,,,,,
 2010-04-01,Thursday,UX,Short,True,intact,intact,intact,UXP,7:40,Long,True,green,08:15,-0.217,Inside,intact,intact,intact,-0.217,0.725,08:30,09:05,UXP,green,Long,True,15:55,0.457,0.464,0.696,0.217,intact,intact,intact
 2010-03-31,Wednesday,RC,Short,True,broken,broken,broken,RC,4:15,Long,True,green,04:35,5.286,Above,intact,intact,broken,3.357,9.143,08:30,09:05,UXP,green,Short,False,10:40,6.321,6.357,7.214,5.429,intact,intact,broken
 2010-03-30,Tuesday,UXP,Short,True,broken,intact,broken,UX,4:00,Short,True,red,07:30,0.292,Below,intact,broken,broken,-0.208,1.625,09:00,08:35,DX,green,Short,True,11:10,0.521,0.562,-0.292,1.333,broken,broken,broken
