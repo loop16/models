@@ -80,6 +80,7 @@ else:
 
 ##### ODR Model###############
 unique_values2 = filtered_model_df['ODR_Model'].str.split(', ').explode().unique()
+unique_values2.sort()
 
 # Create a multiselect dropdown to select multiple values
 selected_values2 = c1.multiselect('Select ODR Model(s)', options=unique_values2)
@@ -135,6 +136,8 @@ else:
 
 ##### RDR Model###############
 unique_values = filtered_model_df['RDR_Model'].str.split(', ').explode().unique()
+unique_values.sort()
+
 
 # Create a multiselect dropdown to select multiple values
 selected_values = c1.multiselect('Select RDR Model(s)', options=unique_values)
@@ -527,18 +530,25 @@ numeric_values1 = filtered_model_df['ODR Close Price'].apply(pd.to_numeric, erro
 numeric_values2 = filtered_model_df['TRANS MAX RET'].apply(pd.to_numeric, errors='coerce')
 numeric_values3 = filtered_model_df['TRANS MAX EXT'].apply(pd.to_numeric, errors='coerce')
 numeric_values4 = filtered_model_df['RDR IDR MID'].apply(pd.to_numeric, errors='coerce')
+numeric_values5 = filtered_model_df['rdr_idr_highSD'].apply(pd.to_numeric, errors='coerce')
+numeric_values6 = filtered_model_df['rdr_idr_lowSD'].apply(pd.to_numeric, errors='coerce')
 
 medianClose=numeric_values1.median()
 medianRET=numeric_values2.median()
 medianEXT=numeric_values3.median()
 medianMID=numeric_values4.median()
+medianIDRhigh=numeric_values5.median()
+medianIDRlow=numeric_values6.median()
 
 medianClose_rounded = round(medianClose, 2)
 medianRET_rounded = round(medianRET, 2)
 medianEXT_rounded = round(medianEXT, 2)
 medianMID_rounded = round(medianMID, 2)
 
-c6.write(f"Median Close: {medianClose_rounded}&nbsp;  |  Median Trans RET: {medianRET_rounded}&nbsp;  |  Median Trans EXT: {medianEXT_rounded}&nbsp;  |  Median IDR MID: {medianMID_rounded}")
+medianIDRH_rounded = round(medianIDRhigh, 2)
+medianIDRL_rounded = round(medianIDRlow, 2)
+
+c6.write(f"Median Close: {medianClose_rounded}&nbsp;  |  Median Trans RET: {medianRET_rounded}&nbsp;  |  Median Trans EXT: {medianEXT_rounded}&nbsp;  |  Median IDR MID: {medianMID_rounded}" )
 
 c6A,c6B = c6.columns(2)
 
@@ -559,6 +569,8 @@ bar_chart17 = alt.Chart(filtered_model_df).mark_bar().encode(
     )
 c6A.altair_chart(bar_chart16,theme=None, use_container_width=True)
 c6B.altair_chart(bar_chart17,theme=None, use_container_width=True)
+c6A.write(f"Median IDR High: {medianIDRH_rounded}")
+c6B.write(f"Median IDR Low: {medianIDRL_rounded}")
 
 
 c6AA,c6BB,c6CC = c6.columns(3)
