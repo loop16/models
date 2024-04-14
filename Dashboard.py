@@ -30,6 +30,7 @@ c2,c3,c4 = c7.columns(3)
 
 #Day selector
 DAY_options = ['All'] + list(df['Day'].unique())
+
 DAYw = c1.selectbox('Day' , options=DAY_options)
 
 filtered_model_df = df
@@ -40,7 +41,7 @@ else:
         filtered_model_df = filtered_model_df[filtered_model_df['Day'] == DAYw]
 
 #ADR Model####################
-RdrAdr_options = ['All'] + list(df['ADR_Model'].unique())
+RdrAdr_options = ['All'] + list(filtered_model_df['ADR_Model'].unique())
 RDRtoADR = c1.selectbox('ADR Model' , options=RdrAdr_options)
 
 
@@ -95,7 +96,7 @@ else:
     filtered_model_df = filtered_model_df[filtered_model_df['ODR_Model'].str.split(', ').explode().isin(selected_values2)]
 
 ##ODR confirmation time ########
-TIMEConfirm_options = ['All'] + sorted(df['ODR_CONF_TIME'].dropna().unique())
+TIMEConfirm_options = ['All'] + sorted(filtered_model_df['ODR_CONF_TIME'].dropna().unique())
 TIMEConfirm = c1.selectbox('ODR Confirmation Time' , options=TIMEConfirm_options)
 
 if TIMEConfirm == 'All':
@@ -105,7 +106,7 @@ else:
 
 ##ODR Confirmation #############
 
-ODRConfirm_options = ['All'] + list(df['ODR_Confirmation'].unique())
+ODRConfirm_options = ['All'] + list(filtered_model_df['ODR_Confirmation'].unique())
 ODRConfirm = c1.selectbox('Confirmation' , options=ODRConfirm_options)
 
 if ODRConfirm == 'All':
@@ -114,7 +115,7 @@ else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR_Confirmation'] == ODRConfirm]
 
 #### ODR true or False##########
-ODRTF_options = ['All'] + list(df['ODR_True_False'].unique())
+ODRTF_options = ['All'] + list(filtered_model_df['ODR_True_False'].unique())
 ODRTFx = c1.selectbox('ODR True/False' , options=ODRTF_options)
 
 if ODRTFx == 'All':
@@ -123,7 +124,7 @@ else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR_True_False'] == ODRTFx]
 
 ##### ODR max retrace time #####
-RetTime_options = ['All'] + sorted(df['ODR MAX RET TIME'].dropna().unique())
+RetTime_options = ['All'] + sorted(filtered_model_df['ODR MAX RET TIME'].dropna().unique())
 RetTime = c1.selectbox('ODR Max Retrace Time' , options=RetTime_options)
 
 if RetTime == 'All':
@@ -153,7 +154,7 @@ else:
 
 ######## ODR CLOSE location ##########
 
-ODRlocation_options = ['All'] + list(df['ODR Close Location'].unique())
+ODRlocation_options = ['All'] + list(filtered_model_df['ODR Close Location'].unique())
 ODRlocation = c1.selectbox('ODR Close Location' , options=ODRlocation_options)
 
 if ODRlocation == 'All':
@@ -161,7 +162,7 @@ if ODRlocation == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR Close Location'] == ODRlocation]
 
-RDRcon_options = ['All'] + list(df['RDR_Confirmation'].unique())
+RDRcon_options = ['All'] + list(filtered_model_df['RDR_Confirmation'].unique())
 RDRcon = c1.selectbox('RDR Confirmation' , options=RDRcon_options)
 
 if RDRcon == 'All':
@@ -671,7 +672,7 @@ ConfirmationCounts=finalDf['RDR_Confirmation'].value_counts()
 GreenRedCounts = finalDf['RDR Box Color'].value_counts()
 
 
-percent_true = (Truefalse_counts['True'] /len(finalDf) ) * 100
+
 
 
 
@@ -680,6 +681,11 @@ try:
     percent_long = (ConfirmationCounts['Long'] / len(finalDf)) * 100
 except Exception as e:
     percent_long = 0 
+
+try:
+    percent_true = (Truefalse_counts['True'] /len(finalDf) ) * 100
+except Exception as e:
+    percent_true = 0 
 
 
 
