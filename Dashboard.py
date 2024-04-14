@@ -50,22 +50,22 @@ else:
         filtered_model_df = filtered_model_df[filtered_model_df['ADR_Model'] == RDRtoADR]
 
 #ADR long short################
-ADRConf_options = ['All'] + list(df['ADR_Confirmation'].unique())
-ADRConf = c1.selectbox('ADR Confirmation' , options=ADRConf_options)
+#ADRConf_options = ['All'] + list(df['ADR_Confirmation'].unique())
+#ADRConf = c1.selectbox('ADR Confirmation' , options=ADRConf_options)
 
-if ADRConf == 'All':
-    filtered_model_df = filtered_model_df
-else:
-    filtered_model_df = filtered_model_df[filtered_model_df['ADR_Confirmation']==ADRConf]
+#if ADRConf == 'All':
+#    filtered_model_df = filtered_model_df
+#else:
+#    filtered_model_df = filtered_model_df[filtered_model_df['ADR_Confirmation']==ADRConf]
 
 #ADR true false################
-ADRTF_options = ['All'] + list(df['ADR_True_False'].unique())
-ADRTFx = c1.selectbox('ADR True/False' , options=ADRTF_options)
+#ADRTF_options = ['All'] + list(df['ADR_True_False'].unique())
+#ADRTFx = c1.selectbox('ADR True/False' , options=ADRTF_options)
 
-if ADRTFx == 'All':
-    filtered_model_df = filtered_model_df
-else:
-    filtered_model_df = filtered_model_df[filtered_model_df['ADR_True_False']==ADRTFx]
+#if ADRTFx == 'All':
+#    filtered_model_df = filtered_model_df
+#else:
+#    filtered_model_df = filtered_model_df[filtered_model_df['ADR_True_False']==ADRTFx]
 
 #ODR model #####################
 ADRtoODR_options = ['All'] + list(df['ODR_Model'].unique())
@@ -620,6 +620,9 @@ c6CC.altair_chart(chartk, use_container_width=True)
 
 
 finalDf=filtered_model_df
+lengthwe=len(filtered_model_df)
+
+Cc.write(f"Total Data:{lengthwe}")
 
 string_to_remove = 'NO_CONF'
 
@@ -648,3 +651,4 @@ percent_longrounded = round(percent_long, 2)
 
 c6BB.write(f" RDR Long: {percent_longrounded}%")
 c6CC.write(f" RDR True: {percent_true_rounded}%")
+
