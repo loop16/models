@@ -622,7 +622,7 @@ c6CC.altair_chart(chartk, use_container_width=True)
 finalDf=filtered_model_df
 lengthwe=len(filtered_model_df)
 
-Cc.write(f"Total Data:{lengthwe}")
+Cc.write(f"Total Data: {lengthwe}")
 
 string_to_remove = 'NO_CONF'
 
