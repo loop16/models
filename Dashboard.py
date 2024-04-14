@@ -68,13 +68,30 @@ else:
 #    filtered_model_df = filtered_model_df[filtered_model_df['ADR_True_False']==ADRTFx]
 
 #ODR model #####################
-ADRtoODR_options = ['All'] + list(df['ODR_Model'].unique())
-ADRtoODR = c1.selectbox('ODR Model' , options=ADRtoODR_options)
+#ADRtoODR_options = ['All'] + list(df['ODR_Model'].unique())
+#ADRtoODR = c1.selectbox('ODR Model' , options=ADRtoODR_options)
 
-if ADRtoODR == 'All':
-        filtered_model_df = filtered_model_df # No filtering
+#if ADRtoODR == 'All':
+#        filtered_model_df = filtered_model_df # No filtering
+#else:
+#        filtered_model_df = filtered_model_df[filtered_model_df['ODR_Model'] == ADRtoODR] 
+
+
+
+##### ODR Model###############
+unique_values2 = filtered_model_df['ODR_Model'].str.split(', ').explode().unique()
+
+# Create a multiselect dropdown to select multiple values
+selected_values2 = c1.multiselect('Select ODR Model(s)', options=unique_values2)
+
+# Create a selectbox to choose filtering options
+filter_option2 = c1.selectbox('Select filter ODR ON/OFF', options=['All', 'Selected'])
+
+if filter_option2 == 'All':
+    filtered_model_df = filtered_model_df  # No filtering
 else:
-        filtered_model_df = filtered_model_df[filtered_model_df['ODR_Model'] == ADRtoODR] 
+    # Filter DataFrame based on selected values
+    filtered_model_df = filtered_model_df[filtered_model_df['ODR_Model'].str.split(', ').explode().isin(selected_values2)]
 
 ##ODR confirmation time ########
 TIMEConfirm_options = ['All'] + sorted(df['ODR_CONF_TIME'].dropna().unique())
@@ -123,7 +140,7 @@ unique_values = filtered_model_df['RDR_Model'].str.split(', ').explode().unique(
 selected_values = c1.multiselect('Select RDR Model(s)', options=unique_values)
 
 # Create a selectbox to choose filtering options
-filter_option = c1.selectbox('Select filtering option', options=['All', 'Selected'])
+filter_option = c1.selectbox('Select filtering RDR ON/OFF', options=['All', 'Selected'])
 
 if filter_option == 'All':
     filtered_model_df = filtered_model_df  # No filtering
@@ -411,7 +428,15 @@ bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
 
 Ch.altair_chart(bar_chart2,theme = None, use_container_width=True)
 
+bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('ODR_Model:N',sort='-y'),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250,
+    width=325
+    )
 
+c1.altair_chart(bar_chart3,theme = None, use_container_width=True)
 
 selected_columns = ['ODR Close Price', 'TRANS MAX RET', 'TRANS MAX EXT', 'RDR IDR MID']
 
