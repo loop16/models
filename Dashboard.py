@@ -569,7 +569,7 @@ c6.write(f"Median Close: {medianClose_rounded}&nbsp;  |  Median Trans RET: {medi
 c6A,c6B = c6.columns(2)
 
 bar_chart16 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('rdr_idr_highSD',bin=alt.Bin(step=0.5)),
+        x=alt.X('rdr_idr_highSD:Q',bin=alt.Bin(step=0.5)),
         y=alt.Y('count():Q')
     ).properties(
     height=250
