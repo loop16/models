@@ -5,6 +5,8 @@ import altair as alt
 
 github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Dash.csv'
 github_raw_url2 = 'https://raw.githubusercontent.com/loop16/models/main/DashNQ.csv'
+github_raw_url3 = 'https://raw.githubusercontent.com/loop16/models/main/DashCLm7.csv'
+github_raw_url4= 'https://raw.githubusercontent.com/loop16/models/main/DashNQm7.csv'
 
 
 def load_data_from_github(url):
@@ -21,9 +23,11 @@ st.set_page_config(layout="wide")
 
 df = load_data_from_github(github_raw_url)
 df2 = load_data_from_github(github_raw_url2)
+df3 = load_data_from_github(github_raw_url3)
+df4 = load_data_from_github(github_raw_url4)
 
 
-instrument_options = ['CL','NQ','ES' ]
+instrument_options = ['CL','CL M7','NQ','NQ M7' ]
 
 
 
@@ -39,6 +43,10 @@ if selected_instrument == 'CL':
         filtered_model_df = df
 elif selected_instrument == 'NQ':
         filtered_model_df = df2
+elif selected_instrument == 'CL M7':
+        filtered_model_df = df3
+elif selected_instrument == 'NQ M7':
+        filtered_model_df = df4
 
 #Day selector
 DAY_options = ['All'] + list(filtered_model_df['Day'].unique())
