@@ -24,7 +24,7 @@ df2 = load_data_from_github(github_raw_url2)
 
 
 instrument_options = ['CL','NQ','ES' ]
-selected_instrument = st.sidebar.selectbox('Instrument', instrument_options)
+
 
 
 c1, c7, c5, c6 = st.columns([1,3,4,4])
@@ -33,7 +33,7 @@ c2,c3,c4 = c7.columns(3)
 
 
 ##### GENERAL FILTERS ##############################################################################
-
+selected_instrument = c1.selectbox('Instrument', instrument_options)
 #Database
 if selected_instrument == 'CL':
         filtered_model_df = df
