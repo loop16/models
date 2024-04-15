@@ -213,21 +213,6 @@ if ADRtrans == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid Trans'] == ADRtrans]
 
-word_counts = filtered_model_df['ADR Mid Trans'].value_counts().reset_index()
-word_counts.columns = ['ADR Mid Trans', 'Count']
-
-chart = alt.Chart(word_counts).mark_arc(innerRadius=30).encode(
-        color=alt.Color('ADR Mid Trans:N',scale=color_scale),
-        theta='Count:Q',
-    ).configure_legend(
-    disable=True  # Hide legend
-)
-
-chart = chart.properties(height=150)
-
-c2.altair_chart(chart, theme=None, use_container_width=True)
-
-#ADR MID BOX
 ADRBx_options = ['All'] + list(filtered_model_df['ADR Mid Box'].unique())
 ADRBx = c3.selectbox('ADR Mid Box' , options=ADRBx_options)
 
@@ -235,23 +220,6 @@ if ADRBx == 'All':
         filtered_model_df = filtered_model_df # No filtering
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid Box'] == ADRBx]
-
-word_counts1 = filtered_model_df['ADR Mid Box'].value_counts().reset_index()
-word_counts1.columns = ['ADR Mid Box', 'Count']
-
-chartA = alt.Chart(word_counts1).mark_arc(innerRadius=30).encode(
-        color=alt.Color('ADR Mid Box:N',scale=color_scale),
-        theta='Count:Q',
-    ).configure_legend(
-    disable=True  # Hide legend
-)
-
-chartA = chartA.properties(height=150)
-
-c3.altair_chart(chartA, theme=None, use_container_width=True)
-
-
-### ADR MID SESSION @@
 
 ADRSess_options = ['All'] + list(filtered_model_df['ADR Mid Session'].unique())
 ADRSess = c4.selectbox('ADR Mid Session' , options=ADRSess_options)
@@ -261,21 +229,6 @@ if ADRSess == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid Session'] == ADRSess]
 
-word_counts2 = filtered_model_df['ADR Mid Session'].value_counts().reset_index()
-word_counts2.columns = ['ADR Mid Session', 'Count']
-
-chartB = alt.Chart(word_counts2).mark_arc(innerRadius=30).encode(
-        color=alt.Color('ADR Mid Session:N',scale=color_scale),
-        theta='Count:Q',
-    ).configure_legend(
-    disable=True  # Hide legend
-)
-
-chartB = chartB.properties(height=150)
-c4.altair_chart(chartB, theme=None, use_container_width=True)
-
-### ODR MID Transition
-
 ODRtrans_options = ['All'] + list(filtered_model_df['ODR Mid Trans'].unique())
 ODRtrans = c2.selectbox('ODR Mid Trans' , options=ODRtrans_options)
 
@@ -283,24 +236,6 @@ if ODRtrans == 'All':
         filtered_model_df = filtered_model_df # No filtering
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR Mid Trans'] == ODRtrans]
-
-
-word_counts3 = filtered_model_df['ODR Mid Trans'].value_counts().reset_index()
-word_counts3.columns = ['ODR Mid Trans', 'Count']
-
-chartC = alt.Chart(word_counts3).mark_arc(innerRadius=30).encode(
-        color=alt.Color('ODR Mid Trans:N',scale=color_scale),
-        theta='Count:Q',
-    ).configure_legend(
-    disable=True  # Hide legend
-)
-
-chartC = chartC.properties(height=150)
-
-c2.altair_chart(chartC, theme=None, use_container_width=True)
-
-
-##ODR MID BOX ####
 
 ODRBx_options = ['All'] + list(filtered_model_df['ODR Mid Box'].unique())
 ODRBx = c3.selectbox('ODR Mid Box' , options=ODRBx_options)
@@ -310,25 +245,6 @@ if ODRBx == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR Mid Box'] == ODRBx]
 
-
-word_counts4 = filtered_model_df['ODR Mid Box'].value_counts().reset_index()
-word_counts4.columns = ['ODR Mid Box', 'Count']
-
-chartD = alt.Chart(word_counts4).mark_arc(innerRadius=30).encode(
-        color=alt.Color('ODR Mid Box:N',scale=color_scale),
-        theta='Count:Q',
-    ).configure_legend(
-    disable=True  # Hide legend
-)
-
-chartD = chartD.properties(height=150)
-
-
-c3.altair_chart(chartD, theme=None, use_container_width=True)
-
-#### ODR MID SESSION######
-
-
 ODRSess_options = ['All'] + list(filtered_model_df['ODR Mid Session'].unique())
 ODRSess = c4.selectbox('ODR Mid Session' , options=ODRSess_options)
 
@@ -336,22 +252,6 @@ if ODRSess == 'All':
         filtered_model_df = filtered_model_df # No filtering
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR Mid Session'] == ODRSess]
-
-word_counts5 = filtered_model_df['ODR Mid Session'].value_counts().reset_index()
-word_counts5.columns = ['ODR Mid Session', 'Count']
-
-chartE = alt.Chart(word_counts5).mark_arc(innerRadius=30).encode(
-        color=alt.Color('ODR Mid Session:N',scale=color_scale),
-        theta='Count:Q',
-    ).configure_legend(
-    disable=True  # Hide legend
-)
-
-chartE = chartE.properties(height=150)
-c4.altair_chart(chartE, theme=None, use_container_width=True)
-
-##### RDR ADR MID TRansition 
-
 
 RDRtrans_options = ['All'] + list(filtered_model_df['ADR Mid RDR Trans'].unique())
 RDRtrans = c2.selectbox('ADR Mid RDR Trans' , options=RDRtrans_options)
@@ -361,6 +261,167 @@ if RDRtrans == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid RDR Trans'] == RDRtrans]
 
+RDRBx_options = ['All'] + list(df['ADR Mid RDR Box'].unique())
+RDRBx = c3.selectbox('ADR Mid RDR Box' , options=RDRBx_options)
+
+if RDRBx == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+else:
+        filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid RDR Box'] == RDRBx]
+
+RDRSess_options = ['All'] + list(filtered_model_df['ADR Mid RDR Session'].unique())
+RDRSess = c4.selectbox('ADR Mid RDR Session' , options=RDRSess_options)
+
+if RDRSess == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+else:
+        filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid RDR Session'] == RDRSess]
+
+word_counts = filtered_model_df['ADR Mid Trans'].value_counts().reset_index()
+word_counts.columns = ['ADR Mid Trans', 'Count']
+
+chart = alt.Chart(word_counts).mark_arc(innerRadius=30).encode(
+        color=alt.Color('ADR Mid Trans:N',scale=color_scale),
+        theta='Count:Q',
+    ).configure_legend(
+    disable=True 
+).properties(
+    title='ADR Mid Trans',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+chart = chart.properties(height=150)
+
+c2.altair_chart(chart, theme=None, use_container_width=True)
+
+#ADR MID BOX
+
+
+word_counts1 = filtered_model_df['ADR Mid Box'].value_counts().reset_index()
+word_counts1.columns = ['ADR Mid Box', 'Count']
+
+chartA = alt.Chart(word_counts1).mark_arc(innerRadius=30).encode(
+        color=alt.Color('ADR Mid Box:N',scale=color_scale),
+        theta='Count:Q',
+    ).configure_legend(
+    disable=True 
+).properties(
+    title='ADR Mid Box',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+chartA = chartA.properties(height=150)
+
+c3.altair_chart(chartA, theme=None, use_container_width=True)
+
+
+### ADR MID SESSION @@
+
+
+
+word_counts2 = filtered_model_df['ADR Mid Session'].value_counts().reset_index()
+word_counts2.columns = ['ADR Mid Session', 'Count']
+
+chartB = alt.Chart(word_counts2).mark_arc(innerRadius=30).encode(
+        color=alt.Color('ADR Mid Session:N',scale=color_scale),
+        theta='Count:Q',
+    ).configure_legend(
+    disable=True
+).properties(
+    title='ADR Mid Session',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+chartB = chartB.properties(height=150)
+c4.altair_chart(chartB, theme=None, use_container_width=True)
+
+### ODR MID Transition
+
+
+
+word_counts3 = filtered_model_df['ODR Mid Trans'].value_counts().reset_index()
+word_counts3.columns = ['ODR Mid Trans', 'Count']
+
+chartC = alt.Chart(word_counts3).mark_arc(innerRadius=30).encode(
+        color=alt.Color('ODR Mid Trans:N',scale=color_scale),
+        theta='Count:Q',
+    ).configure_legend(
+    disable=True 
+).properties(
+    title='ODR Mid Trans',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+chartC = chartC.properties(height=150)
+
+c2.altair_chart(chartC, theme=None, use_container_width=True)
+
+
+##ODR MID BOX ####
+
+
+
+
+word_counts4 = filtered_model_df['ODR Mid Box'].value_counts().reset_index()
+word_counts4.columns = ['ODR Mid Box', 'Count']
+
+chartD = alt.Chart(word_counts4).mark_arc(innerRadius=30).encode(
+        color=alt.Color('ODR Mid Box:N',scale=color_scale),
+        theta='Count:Q',
+    ).configure_legend(
+    disable=True 
+).properties(
+    title='ODR Mid Box',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+chartD = chartD.properties(height=150)
+
+
+c3.altair_chart(chartD, theme=None, use_container_width=True)
+
+#### ODR MID SESSION######
+
+
+
+
+word_counts5 = filtered_model_df['ODR Mid Session'].value_counts().reset_index()
+word_counts5.columns = ['ODR Mid Session', 'Count']
+
+chartE = alt.Chart(word_counts5).mark_arc(innerRadius=30).encode(
+        color=alt.Color('ODR Mid Session:N',scale=color_scale),
+        theta='Count:Q',
+    ).configure_legend(
+    disable=True
+).properties(
+    title='ODR Mid Session',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+chartE = chartE.properties(height=150)
+c4.altair_chart(chartE, theme=None, use_container_width=True)
+
+##### RDR ADR MID TRansition 
+
+
+
 word_counts6 = filtered_model_df['ADR Mid RDR Trans'].value_counts().reset_index()
 word_counts6.columns = ['ADR Mid RDR Trans', 'Count']
 
@@ -368,7 +429,13 @@ chartF = alt.Chart(word_counts6).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid RDR Trans:N',scale=color_scale),
         theta='Count:Q',
     ).configure_legend(
-    disable=True  # Hide legend
+    disable=True
+).properties(
+    title='ADR Mid RDR Trans',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
 )
 
 chartF = chartF.properties(height=150)
@@ -378,13 +445,7 @@ c2.altair_chart(chartF, theme=None, use_container_width=True)
 
 #### RDR ADR MID BOX #########
 
-RDRBx_options = ['All'] + list(df['ADR Mid RDR Box'].unique())
-RDRBx = c3.selectbox('ADR Mid RDR Box' , options=RDRBx_options)
 
-if RDRBx == 'All':
-        filtered_model_df = filtered_model_df # No filtering
-else:
-        filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid RDR Box'] == RDRBx]
 
 word_counts7 = filtered_model_df['ADR Mid RDR Box'].value_counts().reset_index()
 word_counts7.columns = ['ADR Mid RDR Box', 'Count']
@@ -393,9 +454,14 @@ chartG = alt.Chart(word_counts7).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid RDR Box:N',scale=color_scale),
         theta='Count:Q',
     ).configure_legend(
-    disable=True  # Hide legend
+    disable=True
+).properties(
+    title='ADR Mid RDR Box',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
 )
-
 chartG = chartG.properties(height=150)
 
 c3.altair_chart(chartG, theme=None, use_container_width=True)
@@ -404,13 +470,7 @@ c3.altair_chart(chartG, theme=None, use_container_width=True)
 ###### RDR SESSION ############
 
 
-RDRSess_options = ['All'] + list(filtered_model_df['ADR Mid RDR Session'].unique())
-RDRSess = c4.selectbox('ADR Mid RDR Session' , options=RDRSess_options)
 
-if RDRSess == 'All':
-        filtered_model_df = filtered_model_df # No filtering
-else:
-        filtered_model_df = filtered_model_df[filtered_model_df['ADR Mid RDR Session'] == RDRSess]
 
 word_counts8 = filtered_model_df['ADR Mid RDR Session'].value_counts().reset_index()
 word_counts8.columns = ['ADR Mid RDR Session', 'Count']
@@ -421,7 +481,13 @@ chartH = alt.Chart(word_counts8).mark_arc(innerRadius=30).encode(
 ).properties(
     height=150  # Set chart height
 ).configure_legend(
-    disable=True  # Hide legend
+    disable=True
+).properties(
+    title='ADR Mid RDR Session',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
 )
 
 
