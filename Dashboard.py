@@ -4,6 +4,7 @@ import numpy as np
 import altair as alt
 
 github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Dash.csv'
+github_raw_url2 = 'https://raw.githubusercontent.com/loop16/models/main/DashNQ.csv'
 
 
 def load_data_from_github(url):
@@ -19,6 +20,11 @@ st.set_page_config(layout="wide")
 
 
 df = load_data_from_github(github_raw_url)
+df2 = load_data_from_github(github_raw_url2)
+
+
+instrument_options = ['CL','NQ','ES' ]
+selected_instrument = st.sidebar.selectbox('Instrument', instrument_options)
 
 
 c1, c7, c5, c6 = st.columns([1,3,4,4])
@@ -28,12 +34,19 @@ c2,c3,c4 = c7.columns(3)
 
 ##### GENERAL FILTERS ##############################################################################
 
+#Database
+if selected_instrument == 'CL':
+        filtered_model_df = df
+elif selected_instrument == 'NQ':
+        filtered_model_df = df2
+
 #Day selector
-DAY_options = ['All'] + list(df['Day'].unique())
+DAY_options = ['All'] + list(filtered_model_df['Day'].unique())
+
 
 DAYw = c1.selectbox('Day' , options=DAY_options)
 
-filtered_model_df = df
+
 
 if DAYw == 'All':
         filtered_model_df = filtered_model_df # No filtering
@@ -81,6 +94,7 @@ else:
 
 ##### ODR Model###############
 unique_values2 = filtered_model_df['ODR_Model'].str.split(', ').explode().unique()
+unique_values2 = [str(value) for value in unique_values2]
 unique_values2.sort()
 
 # Create a multiselect dropdown to select multiple values
@@ -137,6 +151,7 @@ else:
 
 ##### RDR Model###############
 unique_values = filtered_model_df['RDR_Model'].str.split(', ').explode().unique()
+unique_values = [str(value) for value in unique_values]
 unique_values.sort()
 
 
@@ -182,7 +197,7 @@ color_scale = alt.Scale(domain=['intact', 'broken'],
 ##ADR Mid Trans
 
 
-ADRtrans_options = ['All'] + list(df['ADR Mid Trans'].unique())
+ADRtrans_options = ['All'] + list(filtered_model_df['ADR Mid Trans'].unique())
 ADRtrans = c2.selectbox('ADR Mid Trans' , options=ADRtrans_options)
 
 if ADRtrans == 'All':
@@ -205,7 +220,7 @@ chart = chart.properties(height=150)
 c2.altair_chart(chart, theme=None, use_container_width=True)
 
 #ADR MID BOX
-ADRBx_options = ['All'] + list(df['ADR Mid Box'].unique())
+ADRBx_options = ['All'] + list(filtered_model_df['ADR Mid Box'].unique())
 ADRBx = c3.selectbox('ADR Mid Box' , options=ADRBx_options)
 
 if ADRBx == 'All':
@@ -230,7 +245,7 @@ c3.altair_chart(chartA, theme=None, use_container_width=True)
 
 ### ADR MID SESSION @@
 
-ADRSess_options = ['All'] + list(df['ADR Mid Session'].unique())
+ADRSess_options = ['All'] + list(filtered_model_df['ADR Mid Session'].unique())
 ADRSess = c4.selectbox('ADR Mid Session' , options=ADRSess_options)
 
 if ADRSess == 'All':
@@ -253,7 +268,7 @@ c4.altair_chart(chartB, theme=None, use_container_width=True)
 
 ### ODR MID Transition
 
-ODRtrans_options = ['All'] + list(df['ODR Mid Trans'].unique())
+ODRtrans_options = ['All'] + list(filtered_model_df['ODR Mid Trans'].unique())
 ODRtrans = c2.selectbox('ODR Mid Trans' , options=ODRtrans_options)
 
 if ODRtrans == 'All':
@@ -279,7 +294,7 @@ c2.altair_chart(chartC, theme=None, use_container_width=True)
 
 ##ODR MID BOX ####
 
-ODRBx_options = ['All'] + list(df['ODR Mid Box'].unique())
+ODRBx_options = ['All'] + list(filtered_model_df['ODR Mid Box'].unique())
 ODRBx = c3.selectbox('ODR Mid Box' , options=ODRBx_options)
 
 if ODRBx == 'All':
@@ -306,7 +321,7 @@ c3.altair_chart(chartD, theme=None, use_container_width=True)
 #### ODR MID SESSION######
 
 
-ODRSess_options = ['All'] + list(df['ODR Mid Session'].unique())
+ODRSess_options = ['All'] + list(filtered_model_df['ODR Mid Session'].unique())
 ODRSess = c4.selectbox('ODR Mid Session' , options=ODRSess_options)
 
 if ODRSess == 'All':
@@ -330,7 +345,7 @@ c4.altair_chart(chartE, theme=None, use_container_width=True)
 ##### RDR ADR MID TRansition 
 
 
-RDRtrans_options = ['All'] + list(df['ADR Mid RDR Trans'].unique())
+RDRtrans_options = ['All'] + list(filtered_model_df['ADR Mid RDR Trans'].unique())
 RDRtrans = c2.selectbox('ADR Mid RDR Trans' , options=RDRtrans_options)
 
 if RDRtrans == 'All':
@@ -381,7 +396,7 @@ c3.altair_chart(chartG, theme=None, use_container_width=True)
 ###### RDR SESSION ############
 
 
-RDRSess_options = ['All'] + list(df['ADR Mid RDR Session'].unique())
+RDRSess_options = ['All'] + list(filtered_model_df['ADR Mid RDR Session'].unique())
 RDRSess = c4.selectbox('ADR Mid RDR Session' , options=RDRSess_options)
 
 if RDRSess == 'All':
@@ -661,6 +676,7 @@ finalDf=filtered_model_df
 lengthwe=len(filtered_model_df)
 
 Cc.write(f"Total Data: {lengthwe}")
+Ch.write(f'Instrument: {selected_instrument}')
 
 string_to_remove = 'NO_CONF'
 
