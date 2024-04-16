@@ -7,7 +7,8 @@ github_raw_url = 'https://raw.githubusercontent.com/loop16/models/main/Dash.csv'
 github_raw_url2 = 'https://raw.githubusercontent.com/loop16/models/main/DashNQ.csv'
 github_raw_url3 = 'https://raw.githubusercontent.com/loop16/models/main/DashCLm7.csv'
 github_raw_url4= 'https://raw.githubusercontent.com/loop16/models/main/DashNQm7.csv'
-
+github_raw_url5 = 'https://raw.githubusercontent.com/loop16/models/main/DashES.csv'
+github_raw_url6= 'https://raw.githubusercontent.com/loop16/models/main/DashESm7.csv'
 
 def load_data_from_github(url):
     try:
@@ -25,9 +26,10 @@ df = load_data_from_github(github_raw_url)
 df2 = load_data_from_github(github_raw_url2)
 df3 = load_data_from_github(github_raw_url3)
 df4 = load_data_from_github(github_raw_url4)
+df5 = load_data_from_github(github_raw_url5)
+df6 = load_data_from_github(github_raw_url6)
 
-
-instrument_options = ['CL','CL M7','NQ','NQ M7' ]
+instrument_options = ['CL','CL M7','NQ','NQ M7', 'ES' , 'ES M7']
 
 
 
@@ -47,6 +49,10 @@ elif selected_instrument == 'CL M7':
         filtered_model_df = df3
 elif selected_instrument == 'NQ M7':
         filtered_model_df = df4
+elif selected_instrument == 'ES':
+        filtered_model_df = df5
+elif selected_instrument == 'ES M7':
+        filtered_model_df = df6
 
 #Day selector
 DAY_options = ['All'] + list(filtered_model_df['Day'].unique())
@@ -541,7 +547,7 @@ column_order = ['ODR Close Price', 'TRANS MAX RET', 'TRANS MAX EXT', 'RDR IDR MI
 # Melt the DataFrame to create a long-form DataFrame for the selected columns
 melted_df = filtered_model_df[selected_columns].melt(var_name='Column', value_name='Value')
 
-melted_df['binned_value'] = pd.cut(melted_df['Value'], bins=pd.interval_range(start=0, end=10, freq=0.5))
+#melted_df['binned_value'] = pd.cut(melted_df['Value'], bins=pd.interval_range(start=0, end=10, freq=0.5))
 
 # Create the box plot
 box_plot = alt.Chart(melted_df).mark_boxplot(color='white',size=150).encode(
