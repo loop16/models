@@ -4,7 +4,8 @@ import numpy as np
 import altair as alt
 
 
-github_raw_url6= 'https://raw.githubusercontent.com/loop16/models/main/DashESm7.csv'
+github_raw_url6= 'https://raw.githubusercontent.com/loop16/models/main/ESM7JOE.csv'
+github_raw_url7= 'https://raw.githubusercontent.com/loop16/models/main/normalized_data_rounded2.txt'
 
 
 def load_data_from_github(url):
@@ -18,9 +19,9 @@ def load_data_from_github(url):
 
 st.set_page_config(layout="wide")
 
-df5 = pd.read_csv("ESM7JOE.csv")
+df5 = load_data_from_github(github_raw_url6)
 
-df6 = load_data_from_github(github_raw_url6)
+df6 = load_data_from_github(github_raw_url7)
 
 instrument_options = ['CL','CL M7','NQ','NQ M7', 'ES' , 'ES M7']
 
@@ -531,7 +532,7 @@ switch_state = Cc.checkbox("Pricemodels")
 
 #melted_df['binned_value'] = pd.cut(melted_df['Value'], bins=pd.interval_range(start=0, end=10, freq=0.5))
 
-normalized_data = pd.read_csv("normalized_data_rounded.csv")
+normalized_data = df6
 
 # Convert 'timestamp' column to datetime
 normalized_data['timestamp'] = pd.to_datetime(normalized_data['timestamp'])
