@@ -4,10 +4,6 @@ import numpy as np
 import altair as alt
 
 
-github_raw_url6= 'https://raw.githubusercontent.com/loop16/models/main/ESM7JOE.csv'
-github_raw_url7= 'https://raw.githubusercontent.com/loop16/models/main/normalized_data_rounded2.txt'
-
-
 def load_data_from_github(url):
     try:
         # Read CSV data using pandas
@@ -16,25 +12,30 @@ def load_data_from_github(url):
         st.error(f"Error loading data: {str(e)}")
         return None
     
-
 st.set_page_config(layout="wide")
 
-df5 = load_data_from_github(github_raw_url6)
+# Define GitHub URLs for each instrument
+github_urls = {
+    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
+    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
+    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
+}
 
-df6 = load_data_from_github(github_raw_url7)
-
-instrument_options = ['CL','CL M7','NQ','NQ M7', 'ES' , 'ES M7']
-
-
-
-c1, c7, c5, c6 = st.columns([1,3,4,4])
-
-c2,c3,c4 = c7.columns(3)
-
+c1, c7, c5 = st.columns([1, 3, 8])
+c2, c3, c4 = c7.columns(3)
 
 ##### GENERAL FILTERS ##############################################################################
+selected_instrument = c1.selectbox('Instrument', ['CL', 'NQ', 'ES'])
 
-filtered_model_df = df5
+# Load data based on selected instrument
+if selected_instrument in github_urls:
+    dash_url, rounded_url = github_urls[selected_instrument]
+    filtered_model_df = load_data_from_github(dash_url)
+    normalized_data = load_data_from_github(rounded_url)
+else:
+    st.error("Selected instrument not recognized.")
+
+
 #Day selector
 DAY_options = ['All'] + list(filtered_model_df['Day'].unique())
 
@@ -131,6 +132,18 @@ if ODRTFx == 'All':
         filtered_model_df = filtered_model_df # No filtering
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR_True_False'] == ODRTFx]
+
+
+##### ODR max Extension TIME
+ExtTime_options = ['All'] + sorted(filtered_model_df['ODR MAX EXT TIME'].dropna().unique())
+ExtTime = c1.selectbox('ODR Max Extension Time' , options=ExtTime_options)
+
+
+if ExtTime == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+else:
+        filtered_model_df = filtered_model_df[filtered_model_df['ODR MAX EXT TIME'] == ExtTime]   
+
 
 ##### ODR max retrace time #####
 RetTime_options = ['All'] + sorted(filtered_model_df['ODR MAX RET TIME'].dropna().unique())
@@ -267,8 +280,13 @@ else:
 word_counts = filtered_model_df['ADR Mid Trans'].value_counts().reset_index()
 word_counts.columns = ['ADR Mid Trans', 'Count']
 
+total_count = word_counts['Count'].sum()
+word_counts['Percentage'] = word_counts['Count'].div(total_count).mul(100).fillna(0)
+word_counts['Percentage'] = word_counts['Percentage'].round(3)
+
 chart = alt.Chart(word_counts).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid Trans:N',scale=color_scale),
+        tooltip=['ADR Mid Trans', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True 
@@ -290,8 +308,13 @@ c2.altair_chart(chart, theme=None, use_container_width=True)
 word_counts1 = filtered_model_df['ADR Mid Box'].value_counts().reset_index()
 word_counts1.columns = ['ADR Mid Box', 'Count']
 
+total_count = word_counts1['Count'].sum()
+word_counts1['Percentage'] = word_counts1['Count'].div(total_count).mul(100).fillna(0)
+word_counts1['Percentage'] = word_counts1['Percentage'].round(3)
+
 chartA = alt.Chart(word_counts1).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid Box:N',scale=color_scale),
+        tooltip=['ADR Mid Box', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True 
@@ -315,8 +338,13 @@ c3.altair_chart(chartA, theme=None, use_container_width=True)
 word_counts2 = filtered_model_df['ADR Mid Session'].value_counts().reset_index()
 word_counts2.columns = ['ADR Mid Session', 'Count']
 
+total_count = word_counts2['Count'].sum()
+word_counts2['Percentage'] = word_counts2['Count'].div(total_count).mul(100).fillna(0)
+word_counts2['Percentage'] = word_counts2['Percentage'].round(3)
+
 chartB = alt.Chart(word_counts2).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid Session:N',scale=color_scale),
+        tooltip=['ADR Mid Session', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True
@@ -338,8 +366,13 @@ c4.altair_chart(chartB, theme=None, use_container_width=True)
 word_counts3 = filtered_model_df['ODR Mid Trans'].value_counts().reset_index()
 word_counts3.columns = ['ODR Mid Trans', 'Count']
 
+total_count = word_counts3['Count'].sum()
+word_counts3['Percentage'] = word_counts3['Count'].div(total_count).mul(100).fillna(0)
+word_counts3['Percentage'] = word_counts3['Percentage'].round(3)
+
 chartC = alt.Chart(word_counts3).mark_arc(innerRadius=30).encode(
         color=alt.Color('ODR Mid Trans:N',scale=color_scale),
+        tooltip=['ODR Mid Trans', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True 
@@ -364,8 +397,13 @@ c2.altair_chart(chartC, theme=None, use_container_width=True)
 word_counts4 = filtered_model_df['ODR Mid Box'].value_counts().reset_index()
 word_counts4.columns = ['ODR Mid Box', 'Count']
 
+total_count = word_counts4['Count'].sum()
+word_counts4['Percentage'] = word_counts4['Count'].div(total_count).mul(100).fillna(0)
+word_counts4['Percentage'] = word_counts4['Percentage'].round(3)
+
 chartD = alt.Chart(word_counts4).mark_arc(innerRadius=30).encode(
         color=alt.Color('ODR Mid Box:N',scale=color_scale),
+        tooltip=['ODR Mid Box', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True 
@@ -389,8 +427,13 @@ c3.altair_chart(chartD, theme=None, use_container_width=True)
 word_counts5 = filtered_model_df['ODR Mid Session'].value_counts().reset_index()
 word_counts5.columns = ['ODR Mid Session', 'Count']
 
+total_count = word_counts5['Count'].sum()
+word_counts5['Percentage'] = word_counts5['Count'].div(total_count).mul(100).fillna(0)
+word_counts5['Percentage'] = word_counts5['Percentage'].round(3)
+
 chartE = alt.Chart(word_counts5).mark_arc(innerRadius=30).encode(
         color=alt.Color('ODR Mid Session:N',scale=color_scale),
+        tooltip=['ODR Mid Session', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True
@@ -411,9 +454,13 @@ c4.altair_chart(chartE, theme=None, use_container_width=True)
 
 word_counts6 = filtered_model_df['ADR Mid RDR Trans'].value_counts().reset_index()
 word_counts6.columns = ['ADR Mid RDR Trans', 'Count']
+total_count = word_counts6['Count'].sum()
+word_counts6['Percentage'] = word_counts6['Count'].div(total_count).mul(100).fillna(0)
+word_counts6['Percentage'] = word_counts6['Percentage'].round(3)
 
 chartF = alt.Chart(word_counts6).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid RDR Trans:N',scale=color_scale),
+        tooltip=['ADR Mid RDR Trans', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True
@@ -437,8 +484,13 @@ c2.altair_chart(chartF, theme=None, use_container_width=True)
 word_counts7 = filtered_model_df['ADR Mid RDR Box'].value_counts().reset_index()
 word_counts7.columns = ['ADR Mid RDR Box', 'Count']
 
+total_count = word_counts7['Count'].sum()
+word_counts7['Percentage'] = word_counts7['Count'].div(total_count).mul(100).fillna(0)
+word_counts7['Percentage'] = word_counts7['Percentage'].round(3)
+
 chartG = alt.Chart(word_counts7).mark_arc(innerRadius=30).encode(
         color=alt.Color('ADR Mid RDR Box:N',scale=color_scale),
+        tooltip=['ADR Mid RDR Box', 'Count', 'Percentage:Q'],
         theta='Count:Q',
     ).configure_legend(
     disable=True
@@ -462,8 +514,13 @@ c3.altair_chart(chartG, theme=None, use_container_width=True)
 word_counts8 = filtered_model_df['ADR Mid RDR Session'].value_counts().reset_index()
 word_counts8.columns = ['ADR Mid RDR Session', 'Count']
 
+total_count = word_counts8['Count'].sum()
+word_counts8['Percentage'] = word_counts8['Count'].div(total_count).mul(100).fillna(0)
+word_counts8['Percentage'] = word_counts8['Percentage'].round(3)
+
 chartH = alt.Chart(word_counts8).mark_arc(innerRadius=30).encode(
     color=alt.Color('ADR Mid RDR Session:N',scale=color_scale),
+    tooltip=['ADR Mid RDR Session', 'Count', 'Percentage:Q'],
     theta='Count:Q'
 ).properties(
     height=150  # Set chart height
@@ -532,7 +589,9 @@ switch_state = Cc.checkbox("Pricemodels")
 
 #melted_df['binned_value'] = pd.cut(melted_df['Value'], bins=pd.interval_range(start=0, end=10, freq=0.5))
 
-normalized_data = df6
+
+
+
 
 # Convert 'timestamp' column to datetime
 normalized_data['timestamp'] = pd.to_datetime(normalized_data['timestamp'])
@@ -541,9 +600,17 @@ normalized_data['date'] = normalized_data['timestamp'].dt.date
 normalized_data['time'] = normalized_data['timestamp'].dt.time
 
 filtered_model_df['date'] = pd.to_datetime(filtered_model_df['date']).dt.date
-if switch_state:
-    st.write("The switch is ON")
+if switch_state == False:
+    RDRmop = ['All'] + list(filtered_model_df['RDR_Model'].unique())
+    RDRm = c3.selectbox('RDR_Model' , options=RDRmop)
+
+    if RDRm == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+    else:
+        filtered_model_df = filtered_model_df[filtered_model_df['RDR_Model'] == RDRm]
+
     selected_option = c2.selectbox("Select an option", ["All"] + filtered_model_df['date'].tolist())
+    
 # Filter normalized_data based on the list of dates
 
     if selected_option == "All":
@@ -554,38 +621,9 @@ if switch_state:
         selected_dates = pd.to_datetime(filtered_model_df[filtered_model_df['date'] == selected_option]['date']).dt.date
         selected_data = normalized_data[normalized_data['date'].isin(selected_dates)]
 
-    charts = []
-    for date in selected_dates:
-        data_for_date = selected_data[selected_data['date'] == date]
-        chart = alt.Chart(data_for_date).mark_line().encode(
-            x='time:T',
-            y='normalized_close:Q',
-            color=alt.value('blue'),  # Set color to blue for all lines
-            tooltip=['time', 'normalized_close']
-        ).properties(
-            width=800,
-            height=800,
-            title=f"Normalized Close for {date}"
-        )
-        chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('08:25:00').time()]})).mark_rule(color='white',strokeDash=[3, 3]).encode(
-            x='time:T'
-        )
-        chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('09:30:00').time()]})).mark_rule(color='white',strokeDash=[3, 3]).encode(
-            x='time:T'
-        )
-        chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('04:00:00').time()]})).mark_rule(color='white',strokeDash=[3, 3]).encode(
-            x='time:T'
-        )
-        chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('10:30:00').time()]})).mark_rule(color='white',strokeDash=[3, 3]).encode(
-            x='time:T'
-        )
-
-
+    
 
     
-        charts.append(chart)
-
-    c5.altair_chart(alt.layer(*charts), use_container_width=True)   
 
     median_data = selected_data.groupby('time')['normalized_close'].median().reset_index()
 
@@ -638,17 +676,17 @@ if switch_state:
 
 #close_925 = median_data[median_data['time'] == pd.to_datetime('09:25:00').time()]['normalized_close'].iloc[0]
 #close_1025 = median_data[median_data['time'] == pd.to_datetime('10:25:00').time()]['normalized_close'].iloc[0]
-
+    
 # Plot the median high-low values using Altair
     chart = alt.Chart(median_high_low_data).mark_line().encode(
-        x=alt.X('time:T'),
+        x=alt.X('time:T',axis=alt.Axis(labels=False,title = None)),
         y=alt.Y('normalized_high:Q', axis=alt.Axis(title=None)),
         tooltip=['time', 'normalized_high'],
         color=alt.value('#aec7e8')
     ).properties(
         width=800,
-        height=800,
-        title="Median High-Low Chart Across Selected Dates"
+        height=600,
+        title="Loopuidity Model"
     )
 
     chart += alt.Chart(median_high_low_data).mark_line().encode(
@@ -725,27 +763,118 @@ if switch_state:
     )
 
     chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('09:30:00').time(), pd.to_datetime('15:55').time()],
-                                  'close_925': [close_925, close_925]})).mark_line(color='green').encode(
+                                  'close_925': [close_925, close_925]})).mark_line(color='green',strokeWidth=3).encode(
         x='time:T',
         y=alt.Y('close_925:Q', axis=alt.Axis(title=None))
     )
     chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('10:30:00').time(), pd.to_datetime('15:55').time()],
-                                      'close_1025': [close_1025, close_1025]})).mark_line(color='red').encode(
+                                      'close_1025': [close_1025, close_1025]})).mark_line(color='red',strokeWidth=3).encode(
         x='time:T',
         y=alt.Y('close_1025:Q', axis=alt.Axis(title=None))
     )
 
     chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('03:00:00').time(), pd.to_datetime('8:25').time()],
-                                      'close_255': [close_255, close_255]})).mark_line(color='green').encode(
+                                      'close_255': [close_255, close_255]})).mark_line(color='green',strokeWidth=3).encode(
         x='time:T',
         y=alt.Y('close_255:Q', axis=alt.Axis(title=None))
     )
     chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('3:55:00').time(), pd.to_datetime('8:25').time()],
-                                      'close_355': [close_355, close_355]})).mark_line(color='red').encode(
+                                      'close_355': [close_355, close_355]})).mark_line(color='red',strokeWidth=3).encode(
         x='time:T',
         y=alt.Y('close_355:Q', axis=alt.Axis(title=None))
     )
 
-    c6.altair_chart(chart, use_container_width=True)
+    
+    c5.altair_chart(chart,theme=None, use_container_width=True)
 else:
     c5.write("Price models are off")
+
+c5A,c5B,c5C,c5D=c5.columns(4)
+
+
+bar_chart16 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('TRANS MAX RET:Q',bin=alt.Bin(step=0.5)),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250
+    
+    )
+
+bar_chart17 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('TRANS MAX EXT:Q',bin=alt.Bin(step=0.5)),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250
+    
+    )
+c5A.altair_chart(bar_chart16,theme=None, use_container_width=True)
+c5B.altair_chart(bar_chart17,theme=None, use_container_width=True)
+
+time_range = pd.date_range( "08:30", "09:25", freq="5min")
+time_values = [time.strftime("%H:%M") for time in time_range]
+
+bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+x=alt.X('TRANS LOW TIME:N', sort=alt.SortField(field='TRANS LOW TIME', order='ascending'), axis=alt.Axis(values=time_values)),
+y=alt.Y('count():Q')
+).properties(
+    height=200
+    
+    )
+c5A.altair_chart(bar_chart3,theme=None, use_container_width=True)
+
+bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+x=alt.X('TRANS HIGH TIME:N', sort=alt.SortField(field='TRANS HIGH TIME', order='ascending'), axis=alt.Axis(values=time_values)),
+y=alt.Y('count():Q')
+).properties(
+    height=200
+    
+    )
+c5B.altair_chart(bar_chart3, theme=None, use_container_width=True)
+
+
+
+numeric_values1 = filtered_model_df['ODR Close Price'].apply(pd.to_numeric, errors='coerce')
+numeric_values2 = filtered_model_df['TRANS MAX RET'].apply(pd.to_numeric, errors='coerce')
+numeric_values3 = filtered_model_df['TRANS MAX EXT'].apply(pd.to_numeric, errors='coerce')
+numeric_values4 = filtered_model_df['RDR IDR MID'].apply(pd.to_numeric, errors='coerce')
+numeric_values5 = filtered_model_df['rdr_idr_highSD'].apply(pd.to_numeric, errors='coerce')
+numeric_values6 = filtered_model_df['rdr_idr_lowSD'].apply(pd.to_numeric, errors='coerce')
+
+medianClose=numeric_values1.median()
+medianRET=numeric_values2.median()
+medianEXT=numeric_values3.median()
+medianMID=numeric_values4.median()
+medianIDRhigh=numeric_values5.median()
+medianIDRlow=numeric_values6.median()
+
+medianClose_rounded = round(medianClose, 2)
+medianRET_rounded = round(medianRET, 2)
+medianEXT_rounded = round(medianEXT, 2)
+medianMID_rounded = round(medianMID, 2)
+
+medianIDRH_rounded = round(medianIDRhigh, 2)
+medianIDRL_rounded = round(medianIDRlow, 2)
+
+c5C.write(f"Median Close: {medianClose_rounded}&nbsp;  |  Median Trans RET: {medianRET_rounded}&nbsp; ") 
+c5D.write(f"Median Trans EXT: {medianEXT_rounded}&nbsp;  |  Median IDR MID: {medianMID_rounded}" )
+
+
+bar_chart16 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('rdr_idr_highSD:Q',bin=alt.Bin(step=0.5)),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250
+    
+    )
+
+bar_chart17 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('rdr_idr_lowSD:Q',bin=alt.Bin(step=0.5)),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250
+    
+    )
+c5C.altair_chart(bar_chart16,theme=None, use_container_width=True)
+c5D.altair_chart(bar_chart17,theme=None, use_container_width=True)
+c5C.write(f"Median IDR High: {medianIDRH_rounded}")
+c5D.write(f"Median IDR Low: {medianIDRL_rounded}")
