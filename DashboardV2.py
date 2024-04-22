@@ -686,7 +686,7 @@ if switch_state == False:
     ).properties(
         width=800,
         height=600,
-        title="Loopuidity Model"
+        title="Loopquidity Model"
     )
 
     chart += alt.Chart(median_high_low_data).mark_line().encode(
