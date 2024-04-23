@@ -878,3 +878,23 @@ c5C.altair_chart(bar_chart16,theme=None, use_container_width=True)
 c5D.altair_chart(bar_chart17,theme=None, use_container_width=True)
 c5C.write(f"Median IDR High: {medianIDRH_rounded}")
 c5D.write(f"Median IDR Low: {medianIDRL_rounded}")
+
+bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('time_of_day_max_price_in session buckets:N',sort='-y'),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250,
+    width=325
+    )
+
+
+bar_chart4 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('time_of_day_min_price_in session buckets:N',sort='-y'),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250,
+    width=325
+    )
+
+c5C.altair_chart(bar_chart3,theme = None, use_container_width=True)
+c5D.altair_chart(bar_chart4,theme = None, use_container_width=True)
