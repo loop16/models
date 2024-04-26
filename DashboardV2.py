@@ -20,6 +20,11 @@ github_urls = {
     'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
     'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
 }
+#github_urls = {
+#    'CL': ('/Users/orlandocantoni/Downloads/CLdash2.csv', '/Users/orlandocantoni/Downloads/CLrounded.txt'),
+#    'NQ': ('/Users/orlandocantoni/Downloads/NQdash2.csv', '/Users/orlandocantoni/Downloads/NQrounded.txt'),
+#    'ES': ('/Users/orlandocantoni/Downloads/ESdash2.csv', '/Users/orlandocantoni/Downloads/ESrounded.txt')
+#}
 
 c1, c7, c5 = st.columns([1, 3, 8])
 c2, c3, c4 = c7.columns(3)
@@ -32,6 +37,7 @@ if selected_instrument in github_urls:
     dash_url, rounded_url = github_urls[selected_instrument]
     filtered_model_df = load_data_from_github(dash_url)
     normalized_data = load_data_from_github(rounded_url)
+    
 else:
     st.error("Selected instrument not recognized.")
 
@@ -46,8 +52,10 @@ DAYw = c1.selectbox('Day' , options=DAY_options)
 
 if DAYw == 'All':
         filtered_model_df = filtered_model_df # No filtering
+        
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['Day'] == DAYw]
+        
 
 #ADR Model####################
 RdrAdr_options = ['All'] + list(filtered_model_df['ADR_Model'].unique())
@@ -154,6 +162,15 @@ if RetTime == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['ODR MAX RET TIME'] == RetTime]   
 
+filtered_model_df['max_retracement_SD_ODR_session']=np.round(np.array(filtered_model_df['max_retracement_SD_ODR_session']) - 0.05, 1)
+
+RetVAL_options = ['All'] + sorted(filtered_model_df['max_retracement_SD_ODR_session'].dropna().unique())
+RetVAL = c1.selectbox('ODR Max Retrace Value' , options=RetVAL_options)
+
+if RetVAL == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+else:
+        filtered_model_df = filtered_model_df[filtered_model_df['max_retracement_SD_ODR_session'] == RetVAL]  
 
 
 
@@ -676,11 +693,19 @@ if switch_state == False:
 
 #close_925 = median_data[median_data['time'] == pd.to_datetime('09:25:00').time()]['normalized_close'].iloc[0]
 #close_1025 = median_data[median_data['time'] == pd.to_datetime('10:25:00').time()]['normalized_close'].iloc[0]
-    
-# Plot the median high-low values using Altair
+    if ODRConfirm == 'Short':
+        invert_y_axis=True
+    else:
+        invert_y_axis=False
+
+    #invert_y_axis = st.checkbox("Invert Y-axis")
+
+    y_encoding_high = 'normalized_high:Q' if not invert_y_axis else alt.Y('normalized_high:Q', axis=alt.Axis(title=None), scale=alt.Scale(reverse=True))
+    y_encoding_low = 'normalized_low:Q' if not invert_y_axis else alt.Y('normalized_low:Q', axis=alt.Axis(title=None), scale=alt.Scale(reverse=True))
+
     chart = alt.Chart(median_high_low_data).mark_line().encode(
-        x=alt.X('time:T',axis=alt.Axis(labels=False,title = None)),
-        y=alt.Y('normalized_high:Q', axis=alt.Axis(title=None)),
+        x=alt.X('time:T', axis=alt.Axis(labels=False, title=None)),
+        y=y_encoding_high,
         tooltip=['time', 'normalized_high'],
         color=alt.value('#aec7e8')
     ).properties(
@@ -691,10 +716,11 @@ if switch_state == False:
 
     chart += alt.Chart(median_high_low_data).mark_line().encode(
         x=alt.X('time:T'),
-        y=alt.Y('normalized_low:Q', axis=alt.Axis(title=None)),
+        y=y_encoding_low,
         tooltip=['time', 'normalized_low'],
         color=alt.value('#1f77b4')
     )
+# Plot the median high-low values using Altair
 
 
     chart += alt.Chart(pd.DataFrame({'time': [pd.to_datetime('08:25:00').time()]})).mark_rule(color='white',strokeDash=[3, 3]).encode(
