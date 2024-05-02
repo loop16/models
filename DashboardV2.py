@@ -16,9 +16,9 @@ st.set_page_config(layout="wide")
 
 # Define GitHub URLs for each instrument
 github_urls = {
-    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
-    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
-    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
+    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash2.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
+    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash2.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
+    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash2.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
 }
 #github_urls = {
 #    'CL': ('/Users/orlandocantoni/Downloads/CLdash2.csv', '/Users/orlandocantoni/Downloads/CLrounded.txt'),
