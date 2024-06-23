@@ -15,16 +15,16 @@ def load_data_from_github(url):
 st.set_page_config(layout="wide")
 
 # Define GitHub URLs for each instrument
-github_urls = {
-    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
-    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
-    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
-}
 #github_urls = {
-#    'CL': ('/Users/orlandocantoni/Downloads/CLdash2.csv', '/Users/orlandocantoni/Downloads/CLrounded.txt'),
-#    'NQ': ('/Users/orlandocantoni/Downloads/NQdash2.csv', '/Users/orlandocantoni/Downloads/NQrounded.txt'),
-#    'ES': ('/Users/orlandocantoni/Downloads/ESdash2.csv', '/Users/orlandocantoni/Downloads/ESrounded.txt')
+#    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
+#    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
+#    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
 #}
+github_urls = {
+    'CL': ('/Users/orlandocantoni/Downloads/CLdash2.csv', '/Users/orlandocantoni/Downloads/CLrounded.txt'),
+    'NQ': ('/Users/orlandocantoni/Downloads/NQdash2.csv', '/Users/orlandocantoni/Downloads/NQrounded.txt'),
+    'ES': ('/Users/orlandocantoni/Downloads/ESdash2.csv', '/Users/orlandocantoni/Downloads/ESrounded.txt')
+}
 
 c1, c7, c5 = st.columns([1, 3, 8])
 c2, c3, c4 = c7.columns(3)
