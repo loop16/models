@@ -16,9 +16,9 @@ st.set_page_config(layout="wide")
 
 # Define GitHub URLs for each instrument
 github_urls = {
-    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash2.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
-    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash2.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
-    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash2.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
+    'CL': ('https://raw.githubusercontent.com/loop16/models/main/CLdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/CLrounded.txt'),
+    'NQ': ('https://raw.githubusercontent.com/loop16/models/main/NQdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/NQrounded.txt'),
+    'ES': ('https://raw.githubusercontent.com/loop16/models/main/ESdash.csv', 'https://raw.githubusercontent.com/loop16/models/main/ESrounded.txt')
 }
 #github_urls = {
 #    'CL': ('/Users/orlandocantoni/Downloads/CLdash2.csv', '/Users/orlandocantoni/Downloads/CLrounded.txt'),
@@ -559,28 +559,7 @@ Cc,Ch = c7.columns([1,2])
 
 #####close location chart
 
-bar_chart = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('ODR Close Location',sort='-y'),
-        y=alt.Y('count():Q')
-    ).properties(
-    height=250,
-    width=400
-    ).configure_legend(
-    disable=True
-    )  # Set chart height
 
-Cc.altair_chart(bar_chart,theme=None, use_container_width=True)
-
-
-bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
-        x=alt.X('RDR_Model:N',sort='-y'),
-        y=alt.Y('count():Q')
-    ).properties(
-    height=250,
-    width=325
-    )
-
-Ch.altair_chart(bar_chart2,theme = None, use_container_width=True)
 
 bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
         x=alt.X('ODR_Model:N',sort='-y'),
@@ -625,6 +604,14 @@ if switch_state == False:
         filtered_model_df = filtered_model_df # No filtering
     else:
         filtered_model_df = filtered_model_df[filtered_model_df['RDR_Model'] == RDRm]
+
+    RDRcolor = ['All'] + list(filtered_model_df['RDR Box Color'].unique())
+    RDRcol = c4.selectbox('RDR Box Color' , options=RDRcolor)
+
+    if RDRcol == 'All':
+        filtered_model_df = filtered_model_df # No filtering
+    else:
+        filtered_model_df = filtered_model_df[filtered_model_df['RDR Box Color'] == RDRcol]
 
     selected_option = c2.selectbox("Select an option", ["All"] + filtered_model_df['date'].tolist())
     
@@ -839,24 +826,168 @@ c5B.altair_chart(bar_chart17,theme=None, use_container_width=True)
 time_range = pd.date_range( "08:30", "09:25", freq="5min")
 time_values = [time.strftime("%H:%M") for time in time_range]
 
-bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
-x=alt.X('TRANS LOW TIME:N', sort=alt.SortField(field='TRANS LOW TIME', order='ascending'), axis=alt.Axis(values=time_values)),
-y=alt.Y('count():Q')
-).properties(
-    height=200
+##bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+##x=alt.X('TRANS LOW TIME:N', sort=alt.SortField(field='TRANS LOW TIME', order='ascending'), axis=alt.Axis(values=time_values)),
+##y=alt.Y('count():Q')
+##).properties(
+##    height=200
     
-    )
-c5A.altair_chart(bar_chart3,theme=None, use_container_width=True)
+##    )
+##c5A.altair_chart(bar_chart3,theme=None, use_container_width=True)
 
-bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
-x=alt.X('TRANS HIGH TIME:N', sort=alt.SortField(field='TRANS HIGH TIME', order='ascending'), axis=alt.Axis(values=time_values)),
-y=alt.Y('count():Q')
-).properties(
-    height=200
+##bar_chart3 = alt.Chart(filtered_model_df).mark_bar().encode(
+##x=alt.X('TRANS HIGH TIME:N', sort=alt.SortField(field='TRANS HIGH TIME', order='ascending'), axis=alt.Axis(values=time_values)),
+##y=alt.Y('count():Q')
+##).properties(
+##    height=200
     
-    )
-c5B.altair_chart(bar_chart3, theme=None, use_container_width=True)
+##    )
+##c5B.altair_chart(bar_chart3, theme=None, use_container_width=True)
 
+bar_chart = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('ODR Close Location',sort='-y'),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250,
+    width=400
+    ).configure_legend(
+    disable=True
+    )  # Set chart height
+
+c5A.altair_chart(bar_chart,theme=None, use_container_width=True)
+
+
+bar_chart2 = alt.Chart(filtered_model_df).mark_bar().encode(
+        x=alt.X('RDR_Model:N',sort='-y'),
+        y=alt.Y('count():Q')
+    ).properties(
+    height=250,
+    width=325
+    )
+
+c5B.altair_chart(bar_chart2,theme = None, use_container_width=True)
+
+value_to_remove = 'NO_CONF'  # Replace this with the actual value you want to remove
+
+# Filter out the specified value
+filtered_df = filtered_model_df[filtered_model_df['RDR_Confirmation'] != value_to_remove]
+
+
+word_counts9 = filtered_df['RDR_Confirmation'].value_counts().reset_index()
+word_counts9.columns = ['RDR_Confirmation', 'Count']
+
+total_count = word_counts9['Count'].sum()
+word_counts9['Percentage'] = word_counts9['Count'].div(total_count).mul(100).fillna(0)
+word_counts9['Percentage'] = word_counts9['Percentage'].round(3)
+
+color_scale = alt.Scale(scheme='category20')
+
+# Create the chart
+chartI = alt.Chart(word_counts9).mark_arc(innerRadius=30).encode(
+    theta=alt.Theta(field='Count', type='quantitative'),
+    color=alt.Color(field='RDR_Confirmation', type='nominal', scale=color_scale),
+    tooltip=[alt.Tooltip('RDR_Confirmation', type='nominal'), 
+             alt.Tooltip('Count', type='quantitative'), 
+             alt.Tooltip('Percentage', type='quantitative')]
+).properties(
+    height=150,
+    title='RDR_Confirmation'
+).configure_legend(
+    disable=True
+).configure_title(
+    fontSize=12,
+    anchor='middle'
+).configure_view(
+    strokeWidth=0  # Remove border
+)
+
+chartI = alt.Chart(word_counts9).mark_arc(innerRadius=30).encode(
+    color=alt.Color('RDR_Confirmation:N',scale=color_scale),
+    tooltip=['RDR_Confirmation', 'Count', 'Percentage:Q'],
+    theta='Count:Q'
+).properties(
+    height=150  # Set chart height
+).configure_legend(
+    disable=True
+).properties(
+    title='RDR_Confirmation',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+
+chartI = chartI.properties(height=150)
+c2.altair_chart(chartI, theme=None, use_container_width=True)
+
+value_to_remove = 'equal'  # Replace this with the actual value you want to remove
+value_to_remove2 = 'nan'
+value_to_remove3 = 'other'
+# Filter out the specified value
+filtered_df = filtered_model_df[filtered_model_df['RDR Box Color'] != value_to_remove]
+filtered_df = filtered_df[filtered_df['RDR Box Color'] != value_to_remove2]
+filtered_df = filtered_df[filtered_df['RDR Box Color'] != value_to_remove3]
+
+word_counts10 = filtered_df['RDR Box Color'].value_counts().reset_index()
+word_counts10.columns = ['RDR Box Color', 'Count']
+
+total_count = word_counts10['Count'].sum()
+word_counts10['Percentage'] = word_counts10['Count'].div(total_count).mul(100).fillna(0)
+word_counts10['Percentage'] = word_counts10['Percentage'].round(3)
+
+chartJ = alt.Chart(word_counts10).mark_arc(innerRadius=30).encode(
+    color=alt.Color('RDR Box Color:N',scale=color_scale),
+    tooltip=['RDR Box Color', 'Count', 'Percentage:Q'],
+    theta='Count:Q'
+).properties(
+    height=150  # Set chart height
+).configure_legend(
+    disable=True
+).properties(
+    title='RDR Box Color',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+
+chartJ = chartJ.properties(height=150)
+
+value_to_remove = 'NO_CONF'  # Replace this with the actual value you want to remove
+
+# Filter out the specified value
+filtered_df = filtered_model_df[filtered_model_df['RDR_True_False'] != value_to_remove]
+
+c3.altair_chart(chartJ, theme=None, use_container_width=True)
+
+word_counts11 = filtered_df['RDR_True_False'].value_counts().reset_index()
+word_counts11.columns = ['RDR_True_False', 'Count']
+
+total_count = word_counts10['Count'].sum()
+word_counts11['Percentage'] = word_counts11['Count'].div(total_count).mul(100).fillna(0)
+word_counts11['Percentage'] = word_counts11['Percentage'].round(3)
+
+chartK = alt.Chart(word_counts11).mark_arc(innerRadius=30).encode(
+    color=alt.Color('RDR_True_False:N',scale=color_scale),
+    tooltip=['RDR_True_False', 'Count', 'Percentage:Q'],
+    theta='Count:Q'
+).properties(
+    height=150  # Set chart height
+).configure_legend(
+    disable=True
+).properties(
+    title='RDR_True_False',  # Set the chart title
+    padding={'left': 0, 'right': 0, 'top': 0, 'bottom': 0}  # Adjust padding to leave space for the title
+).configure_title(
+    fontSize=12,  # Adjust the font size of the title if needed
+    anchor='middle'
+)
+
+
+chartK = chartK.properties(height=150)
+c4.altair_chart(chartK, theme=None, use_container_width=True)
 
 
 numeric_values1 = filtered_model_df['ODR Close Price'].apply(pd.to_numeric, errors='coerce')
