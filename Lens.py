@@ -16,9 +16,9 @@ st.set_page_config(layout="wide")
 
 
 github_urls = {
-    'CL': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/CL_RDR.V1_2025.csv'),
+    'CL': ('/Users/orlandocantoni/Desktop/RBC auto model/CL_RDR.V1_2025.csv'),
     'NQ': ('/Users/orlandocantoni/Desktop/RBC auto model/NQ_RDR.V1_2025.csv'),
-    'ES': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/ES_RDR.V1_2025.csv')
+    'ES': ('/Users/orlandocantoni/Desktop/RBC auto model/ES_RDR.V1_2025.csv')
 }
 
 c1, c2, c3 ,c4 , c5 = st.columns([1,2,2,2,2])
@@ -107,7 +107,7 @@ if RetVAL == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['RDR_Box_STD'] == RetVAL]  
 
-
+filtered_model_df['RDR_Box_STD']=np.round(np.array(filtered_model_df['RDR_Box_STD']) - 0.05, 1)
 
 c2_1, c2_2 = c2.columns(2)
 c3_1, c3_2 = c3.columns(2)
@@ -145,7 +145,6 @@ pct_m7_above = (filtered_model_df['RDR_M7_Retrace'] > -0.5).mean() * 100
 c5_2.metric("% RDR_M7_Retrace > -0.5", f"{pct_m7_above:.2f}%")
 
 
-filtered_model_df['RDR_Box_STD']=np.round(np.array(filtered_model_df['RDR_Box_STD']) - 0.05, 1)
 
 filtered_model_df['RDR_M7_Retrace']=np.round(np.array(filtered_model_df['RDR_M7_Retrace']) - 0.05, 1)
 
@@ -183,7 +182,7 @@ bar1 = alt.Chart(complete_data).mark_bar().encode(
 )
 
 # Calculate median using ALL data (not just the filtered range)
-median_value = filtered_model_df['RDR_M7_Retrace'].median()
+median_value = round(filtered_model_df['RDR_M7_Retrace'].median(), 1)
 
 # Add median line (showing the true median of ALL data)
 median_rule = alt.Chart(pd.DataFrame({'median': [median_value]})).mark_rule(
@@ -229,7 +228,9 @@ bar1 = alt.Chart(complete_data).mark_bar().encode(
 )
 
 # Calculate median using ALL data (not just the filtered range)
-median_value = filtered_model_df['RDR_Max_Ret_STD'].median()
+
+median_value = round(filtered_model_df['RDR_Max_Ret_STD'].median(), 1)
+
 
 # Add median line (showing the true median of ALL data)
 median_rule = alt.Chart(pd.DataFrame({'median': [median_value]})).mark_rule(
@@ -274,7 +275,8 @@ bar1 = alt.Chart(complete_data).mark_bar().encode(
 )
 
 # Calculate median using ALL data (not just the filtered range)
-median_value = filtered_model_df['RDR_Max_Ext_STD'].median()
+
+median_value = round(filtered_model_df['RDR_Max_Ext_STD'].median(), 1)
 
 # Add median line (showing the true median of ALL data)
 median_rule = alt.Chart(pd.DataFrame({'median': [median_value]})).mark_rule(
@@ -319,7 +321,8 @@ bar1 = alt.Chart(complete_data).mark_bar().encode(
 )
 
 # Calculate median using ALL data (not just the filtered range)
-median_value = filtered_model_df['RDR_RBC_STD'].median()
+
+median_value = round(filtered_model_df['RDR_RBC_STD'].median(), 1)
 
 # Add median line (showing the true median of ALL data)
 median_rule = alt.Chart(pd.DataFrame({'median': [median_value]})).mark_rule(
