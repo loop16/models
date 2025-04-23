@@ -18,7 +18,7 @@ st.set_page_config(layout="wide")
 github_urls = {
     'CL': ('/Users/orlandocantoni/Desktop/RBC auto model/CL_RDR.V1_2025.csv'),
     'NQ': ('/Users/orlandocantoni/Desktop/RBC auto model/NQ_RDR.V1_2025.csv'),
-    'ES': ('/Users/orlandocantoni/Desktop/RBC auto model/ES_RDR.V1_2025.csv')
+    'ES': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/ES_RDR.V1_2025.csv')
 }
 
 c1, c2, c3 ,c4 , c5 = st.columns([1,2,2,2,2])
