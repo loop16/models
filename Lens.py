@@ -98,6 +98,8 @@ if TIMEConfirm3 == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['RDR_Confirmation_Candle_30min'] == TIMEConfirm3]   
 
+filtered_model_df['RDR_Box_STD']=np.round(np.array(filtered_model_df['RDR_Box_STD']) - 0.05, 1)
+
 
 RetVAL_options = ['All'] + sorted(filtered_model_df['RDR_Box_STD'].dropna().unique())
 RetVAL = c1.selectbox('RDR_Box_STD' , options=RetVAL_options)
@@ -107,7 +109,7 @@ if RetVAL == 'All':
 else:
         filtered_model_df = filtered_model_df[filtered_model_df['RDR_Box_STD'] == RetVAL]  
 
-filtered_model_df['RDR_Box_STD']=np.round(np.array(filtered_model_df['RDR_Box_STD']) - 0.05, 1)
+
 
 c2_1, c2_2 = c2.columns(2)
 c3_1, c3_2 = c3.columns(2)
