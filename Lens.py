@@ -17,7 +17,7 @@ st.set_page_config(layout="wide")
 
 github_urls = {
     'CL': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/CL_RDR.V1_2025.csv'),
-    'NQ': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/CL_RDR.V1_2025.csv'),
+    'NQ': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/NQ_RDR.V1_2025.csv'),
     'ES': ('https://raw.githubusercontent.com/loop16/models/refs/heads/main/ES_RDR.V1_2025.csv')
 }
 
