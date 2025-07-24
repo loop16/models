@@ -87,7 +87,7 @@ def pill_buttons(
 
 
 # ── file paths ───────────────────────────────────────────────────────
-PRICE_PATH  = "https://raw.githubusercontent.com/loop16/models/main/TSLA_full_5min.csv"
+PRICE_PATH  = "https://raw.githubusercontent.com/loop16/models/refs/heads/main/BATS_TSLAext%2C%205.csv"
 LEVEL_PATH  = "https://raw.githubusercontent.com/loop16/models/main/tesla_actual_levels_minimal.csv"
 WLEVEL_PATH = "https://raw.githubusercontent.com/loop16/models/main/tesla_weekly_actual_levels_minimal.csv"
 
