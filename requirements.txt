@@ -1,3 +1,3 @@
 streamlit>=1.29
-streamlit-lightweight-charts>=0.8      # ← the missing package
+streamlit-lightweight-charts>=0.7      # ← the missing package
 pandas>=2.0
