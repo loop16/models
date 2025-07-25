@@ -87,7 +87,7 @@ def pill_buttons(
 
 
 # ── file paths ───────────────────────────────────────────────────────
-PRICE_PATH  = "https://raw.githubusercontent.com/loop16/models/refs/heads/main/BATS_TSLAext%2C%205.csv"
+PRICE_PATH  = "https://raw.githubusercontent.com/loop16/models/main/BATS_TSLAext%2C%205.csv"
 LEVEL_PATH  = "https://raw.githubusercontent.com/loop16/models/main/tesla_actual_levels_minimal.csv"
 WLEVEL_PATH = "https://raw.githubusercontent.com/loop16/models/main/tesla_weekly_actual_levels_minimal.csv"
 
@@ -464,6 +464,25 @@ chart_cfg = [{
             "visibleLogicalRange": {"from": initial_from, "to": initial_to},
             "secondsVisible": False,
             "tickMarkMaxCharacterLength": 5,
+        },
+        "crosshair": {
+            # 0 = Normal (free), 1 = Magnet (snap‑to‑price / default)
+            "mode": 0,
+
+            # hide the axis labels that follow the lines
+            "vertLine": {
+                "labelVisible":True,
+                "width": 1,
+                "color": "#758696",
+                "style": 0        # solid
+            },
+            "horzLine": {
+                "labelVisible": True,
+                "labelBackgroundColor": "#26A69A",   # teal pill
+                "labelTextColor": "#000000",          # white digits
+                "color": "#758696",
+                "style": 0
+            }
         },
 
         # ← NEW: tell LC to draw the axis strip on the right
