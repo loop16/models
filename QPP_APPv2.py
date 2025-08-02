@@ -22,7 +22,7 @@ st.set_page_config(page_title="TSLA levels", layout="wide")
 NY   = ZoneInfo("America/New_York")
 ROOT = "https://raw.githubusercontent.com/loop16/models/main/"
 PRICE_PATH  = ROOT + "BATS_TSLAext%2C%205.csv"
-LEVEL_PATH  = ROOT + "tesla_actual_levels_minimal.csv"
+LEVEL_PATH  = ROOT + "tesla_actual_levels_minimal2.csv"
 WLEVEL_PATH = ROOT + "tesla_weekly_actual_levels_minimal.csv"
 
 # ───────────────────────────  PILL BUTTON UI
